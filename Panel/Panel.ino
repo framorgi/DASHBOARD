@@ -1,23 +1,20 @@
 /******************************************************************************
-  Arduino Panel Mpdule  for FSX/P3D
-  Version   :  Alfa 0.1  _morgi 2019
-  CPU:     :  Arduino Micro
-  switches :  5 3-position switches
-  SW01-07  :  COM1, COM2, BOTH, NAV1, NAV2,  MKR, DME, GPS/NAV (toggle like function)
-  LEDs     :   A,    F,    B,    G,    C,     E,   DP    on   DIG4
+  Arduino Panel Module  for FSX/P3D
   Display  :  MAX7219 8-segment array
   Link2FS  :  MUST use "Include CR/LF at end" or won't work, this code relies on NL char (dec 10) for EOL
 *******************************************************************************/
-String ProjVersion = "/******************************************************************************\n COMP100, Arduino Radio Module Transponder and Light  for FSX/P3D\nVersion   :  Alfa 0.1 (c) _morgi 2019\n CPU:     :  Arduino Micro\n switches :  5 3-position switches\nSW01-07  :  COM1, COM2, BOTH, NAV1, NAV2,  MKR, DME, GPS/NAV (toggle like function)\n LEDs     :   A,    F,    B,    G,    C,     E,   DP    on   DIG4\n Display  :  MAX7219 8-segment array\n Link2FS  :  MUST use 'Include CR/LF at end' or won't work, this code relies on NL char (dec 10) for EOL\n*******************************************************************************\n";
+String ProjVersion = "/*********************************************************************************\n";
 
+// *************************************************************
+//  ~~~~~~~ LIBRARIES SECTION ~~~~~~~
+//
+// *************************************************************
 
-// LIBRARIES
 // #include "math.h"            // quadrature needs math lib
-// #include "SoftReset.h"          // SoftReset lib,   https://github.com/WickedDevice/SoftReset
-#include "LedControl.h"         // MAX7219 library, http://www.wayoda.org/arduino/ledcontrol/index.html
-// #include "ClickEncoder.h"     // Rotary switch encoder lib, https://github.com/0xPIT/encoder
+// #include "SoftReset.h"       // SoftReset lib,   https://github.com/WickedDevice/SoftReset
 
-#include "ClickEncoder.h"
+#include "LedControl.h"         // MAX7219 library, http://www.wayoda.org/arduino/ledcontrol/index.html  
+#include "ClickEncoder.h"       // Rotary switch encoder lib, https://github.com/0xPIT/encoder
 #include <TimerOne.h>
 
 // *************************************************************
