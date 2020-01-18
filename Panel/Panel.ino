@@ -32,11 +32,11 @@ String ProjVersion = "/*********************************************************
 // *************************************************************
 //  PINOUT setting
 // *************************************************************
-#define ENC_E1_PIN_A 5
-#define ENC_E1_PIN_B 6
+#define ENC_E1_PIN_A 2
+#define ENC_E1_PIN_B 3
 #define ENC_E1_PIN_BTN 7
-#define SW_S1_PIN 2
-#define SW_S2_PIN 3
+#define SW_S1_PIN 5
+#define SW_S2_PIN 6
 #define SW_ST1_PIN 4
 #define MAX_PIN_MOSI  12
 #define MAX_PIN_CS    10
@@ -102,7 +102,7 @@ SW_STATIC_TYPE SW_ST1 = { SW_ST1_PIN, 0, 0};
 //   ~~~~~~~ ClickEncoder Driver class
 // *************************************************************
 ClickEncoder *ENC_E1;
-int16_t lastEncoder_E1 = -1, valueEncoder_E1;
+int16_t lastEncoder_E1 = 0, valueEncoder_E1;
 
 
 // *************************************************************
@@ -153,7 +153,7 @@ boolean SerialCmdReady = false;     // whether the command is ready
 //   variables for master and avionics switches or states, test state, lights, etc
 // *************************************************************
 boolean gbMasterVolts = false;
-boolean gbAvionicsVolts=false;
+boolean gbAvionicsVolts = false;
 
 // *************************************************************
 //   END PREPROCESSOR CODE
@@ -187,7 +187,7 @@ void setup() {
   pinMode(SW_S2.pin, INPUT_PULLUP);
   pinMode(SW_ST1.pin, INPUT_PULLUP);
   //Encoder instantiation
-  ENC_E1 = new ClickEncoder(ENC_E1_PIN_A, ENC_E1_PIN_B, ENC_E1_PIN_BTN);
+  ENC_E1 = new ClickEncoder(ENC_E1_PIN_A, ENC_E1_PIN_B, ENC_E1_PIN_BTN, 4);
 
 
   //Timer1 setup
@@ -218,22 +218,22 @@ void setup() {
 
   // light up everything
 
-  /* for (int j = 0; j <= 4; j++) {
-     for (int i = 7; i >= 0; i--) {
-       lc.setRow(0, i, B10000000); // SWITCH LEDS
-       delay(10);
-       lc.setRow(0, i, B11111111); // SWITCH LEDS
-       delay(100);
-       lc.setRow(0, i, B00000000); // SWITCH LEDS
-     }
+  for (int j = 0; j <= 1; j++) {
+    for (int i = 7; i >= 0; i--) {
+      lc.setRow(0, i, B10000000); // SWITCH LEDS
+      delay(10);
+      lc.setRow(0, i, B11111111); // SWITCH LEDS
+      delay(100);
+      lc.setRow(0, i, B00000000); // SWITCH LEDS
     }
-  */
+  }
+
 
   // Wait X milliseconds then powerdown displays and wait for commands from host
   // turn everything off
 
 
-  InitStatic(&SW_ST1);
+  //InitStatic(&SW_ST1);
   // end of SETUP Light up the LED on pin 13
   pinMode(LED_PIN, OUTPUT);
   digitalWrite(LED_PIN, HIGH);           // turn the LED on (HIGH is the voltage level)
@@ -266,243 +266,247 @@ void loop() {
   // leaving rest on serialbuffer for next loop to process
   // *************************************************************
 
+  /*
+    if ( IsSerialCommand() )  {
+      int iLen = SerialCmdString.length();
+      Serial.print("Got string len "); Serial.println(iLen); Serial.print("Got: [");  Serial.print(SerialCmdString); Serial.println("]");
+      char cToken; char cAction; char *cParam;
+      cToken   = SerialCmdString[0];
+      cAction  = SerialCmdString[1];
+      cParam = &(SerialCmdString[2]);   //cParam is a pointer, assigned to address of 3rd char in SerialCmdString
+      //Serial.print("cToken  = "); Serial.println(cToken);
+      //Serial.print("cAction = "); Serial.println(cAction);
+      //Serial.print("cParam  = "); Serial.println(cParam);
+      //Quick monitor
+      //Serial.print("TAP ["); Serial.print(cToken); Serial.print(cAction); Serial.print(cParam); Serial.println("]");
+      // cToken  ?, /, <, = etc
+      // cAction M, J, E, etc
+      // cParam  0, 1, or longer values
 
-  if ( IsSerialCommand() )  {
-    int iLen = SerialCmdString.length();
-    Serial.print("Got string len "); Serial.println(iLen); Serial.print("Got: [");  Serial.print(SerialCmdString); Serial.println("]");
-    char cToken; char cAction; char *cParam;
-    cToken   = SerialCmdString[0];
-    cAction  = SerialCmdString[1];
-    cParam = &(SerialCmdString[2]);   //cParam is a pointer, assigned to address of 3rd char in SerialCmdString
-    //Serial.print("cToken  = "); Serial.println(cToken);
-    //Serial.print("cAction = "); Serial.println(cAction);
-    //Serial.print("cParam  = "); Serial.println(cParam);
-    //Quick monitor
-    //Serial.print("TAP ["); Serial.print(cToken); Serial.print(cAction); Serial.print(cParam); Serial.println("]");
-    // cToken  ?, /, <, = etc
-    // cAction M, J, E, etc
-    // cParam  0, 1, or longer values
+      // Process the command sent in
+      switch (cToken) {
 
-    // Process the command sent in
-    switch (cToken) {
-
-      case '?' :  {    // case cToken = ?
-          Serial.println("");
-          Serial.println("------ INPUTS ------");
-          Serial.println(" Power           @Pn  (0/1)");
-          Serial.println(" REBOOT Arduino  @R");
-          Serial.println(" TEST Mode       @Tn (0/1)");
-          Serial.println(" Brightness      @Bnn (0-15) [10]");
-          Serial.println(" MASTER power    <an  (0/1)");
-          Serial.println(" AVIONICS power  <gn  (0/1)");
-          Serial.println(" Switch lights   =Mn=Nn=On=Pn=Qn=Rn (0/1)");
-          Serial.println(" NAV GPS switch  =ln (0/1)");
-          Serial.println(" OMI lights      =Vn (0-3)");
-          Serial.println(" FUEL L, R       /Jn /Kn");
-          Serial.println(" VACUUM          /Nn");
-          Serial.println(" OIL PRESS       /Fn");
-          Serial.println(" VOLTS           /Rn");
-          Serial.println("------ OUTPUTS ------");
-          Serial.println(" Button Presses  (try them)");
-          Serial.println("");
-        }
-        break;
-
-      // NEXT TOKEN TO PROCESS "<"
-      case '<' : {   // case cToken = <
-          switch (cAction) {    //MASTER switch
-            case 'a' : if (cParam[0] == '0') {
-                gbMasterVolts = false;
-              }
-              if (cParam[0] == '1') {
-                gbMasterVolts = true;
-              }
-              break;   //AVIONICS switch
-            case 'g' : if (cParam[0] == '0') {
-                gbAvionicsVolts = false;
-              }
-              if (cParam[0] == '1') {
-                gbAvionicsVolts = true;
-              }
-              break;
-            default:   // if other commands come in, ignore them
-              Serial.println("Err <  '" + SerialCmdString + "'");
-              //Serial.println("!<ERR!");
-              break;
-          } // end switch cAtion
-        } // end switch cToken is '<'
-        break;  // break case cToken '<'
-
-      // NEXT cToken to Process '='
-      case '=' :  {
-          switch (cAction) {    // =M1=N0=01=P1 etc, switch functions lights, set the DIG4, SEGx flags
-            case 'M' : if (cParam[0] == '1') {
-                DIG4_LEDs |= SEGA;
-              } else {
-                DIG4_LEDs &= ~SEGA;
-              } break;   // COM1
-            case 'N' : if (cParam[0] == '1') {
-                DIG4_LEDs |= SEGF;
-              } else {
-                DIG4_LEDs &= ~SEGF;
-              } break;   // COM2
-            case 'O' : if (cParam[0] == '1') {
-                DIG4_LEDs |= SEGB;
-              } else {
-                DIG4_LEDs &= ~SEGB;
-              } break;   // BOTH
-            case 'P' : if (cParam[0] == '1') {
-                DIG4_LEDs |= SEGG;
-              } else {
-                DIG4_LEDs &= ~SEGG;
-              } break;   // NAV1
-            case 'Q' : if (cParam[0] == '1') {
-                DIG4_LEDs |= SEGC;
-              } else {
-                DIG4_LEDs &= ~SEGC;
-              } break;   // NAV2
-            case 'U' : if (cParam[0] == '1') {
-                DIG4_LEDs |= SEGE;
-              } else {
-                DIG4_LEDs &= ~SEGE;
-              } break;   // MKR
-            case 'R' : if (cParam[0] == '1') {
-                DIG4_LEDs |= SEGDP;
-              } else {
-                DIG4_LEDs &= ~SEGDP;
-              } break; // DME
-            // GPSNAV switch set DIG0, SEGx flags
-            case 'l' : if (cParam[0] == '1') {
-                DIG0_LEDs = SEGE;
-              } else {
-                DIG0_LEDs = SEGDP;
-              } break;  // GPS else NAV
-
-            // OMI, 0 = none, 1 = outer (SEGA), 2 = middle (SEGF), 3 = inner (SEGB)
-            case 'V' : if (cParam[0] == '0') {
-                DIG7_LEDs = 0;  // none
-              }
-              if (cParam[0] == '1') {
-                DIG7_LEDs = SEGA;  // 1= outer
-              }
-              if (cParam[0] == '2') {
-                DIG7_LEDs = SEGF;  // 2= middle
-              }
-              if (cParam[0] == '3') {
-                DIG7_LEDs = SEGB;  // 2= middle
-              }
-              break;
-            default:   // if other commands come in, ignore them
-              // Serial.println("invalid = cmd, use '?' for help...");
-              Serial.println("Err =  '" + SerialCmdString + "'");
-              break;
-          } // end switch (cAction)
-        } // end switch Token is '='
-        break;  // break case cToken '='
-
-      // NEXT cToken to Process '/'
-      case '/' :  {
-          switch (cAction) {
-            case 'J' : if (cParam[0] == '1') {
-                bLFuelLow = true;
-              } else {
-                bLFuelLow = false;
-              } break;         // left fuel low
-            case 'K' : if (cParam[0] == '1') {
-                bRFuelLow = true;
-              } else {
-                bRFuelLow = false;
-              } break;         // right fuel low
-            case 'N' : if (cParam[0] == '1') {
-                bLVACLow = true;  // Vacuum
-              } else {
-                bLVACLow = false;
-              }
-              bRVACLow = bLVACLow;  // only one signal from FSX it seems...
-              break;
-            case 'F' : if (cParam[0] == '1') {
-                bOILPRESSLow = true;
-              } else {
-                bOILPRESSLow = false;
-              } break;  // OIL PRESSURE
-            case 'R' : if (cParam[0] == '1') {
-                bVOLTSLow = true;
-              } else {
-                bVOLTSLow = false;
-              } break;  // VOLTS
-
-            default:   // if other commands come in, ignore them
-              Serial.println("Err /  '" + SerialCmdString + "'");
-              // Serial.println("invalid / cmd, use '?' for help...");
-              break;
-          } // end switch (cAction)
-        } // end switch Token is '/'
-        break;  // break case cToken '/'
-
-
-      // My custom tokens "@" (not on Jim's software)
-      case '@' :   {
-          switch (cAction) {
-
-            case 'T' : // @T, test / demo, light up all LEDs
-
-              break;
-            case 'P' : // @P, Unit power on or off (really, don't use, rely on <a_ and <g_)
-              if (cParam[0] == '0') {
-                gbMasterVolts = false;
-                gbAvionicsVolts = false;
-              }
-              if (cParam[0] == '1') {
-                gbMasterVolts = true;
-                gbAvionicsVolts = true;
-              }
-              break;
-
-            /*case 'R': // @R    Software reset the Arduino
-                      Serial.println("Software resetting Arduino...");
-                      soft_restart();
-                      break;*/
-            case 'B' : { // @B, Brightness, 0 - 15 (zero is NOT off!)
-                int iScratch = atoi(cParam);
-                if (iScratch >= 0 && iScratch <= 15) {
-                  LEDIntensity = iScratch;
-                  for (int i = 0; i < MAX7219_NUMCHIPS; i++) {
-                    lc.setIntensity(i, LEDIntensity);
-                  }
-                }
-              }
-              break;
-
-            default:  // if other commands come in, ignore them
-              //Serial.println("invalid @ cmd, use '?' for help...");
-              Serial.println("Err @  '" + SerialCmdString + "'");
-              //Serial.println("!@ERR!");
-              break;
-          }  // end code block
-        } // end switch Token is '@', cAction
-        break;  // break case cToken @
-
-      // ANY OTHER CTOKEN (unrecognized)
-      default:
-        Serial.println("Err '" + SerialCmdString + "'");
-        // ignore null entry, otherwise
-        /*
-          if (int(cToken) == 0 ) {
-            Serial.println("use '?' for help");
-          } else {
-            Serial.println("invalid token, use '?' for help");
+        case '?' :  {    // case cToken = ?
+            Serial.println("");
+            Serial.println("------ INPUTS ------");
+            Serial.println(" Power           @Pn  (0/1)");
+            Serial.println(" REBOOT Arduino  @R");
+            Serial.println(" TEST Mode       @Tn (0/1)");
+            Serial.println(" Brightness      @Bnn (0-15) [10]");
+            Serial.println(" MASTER power    <an  (0/1)");
+            Serial.println(" AVIONICS power  <gn  (0/1)");
+            Serial.println(" Switch lights   =Mn=Nn=On=Pn=Qn=Rn (0/1)");
+            Serial.println(" NAV GPS switch  =ln (0/1)");
+            Serial.println(" OMI lights      =Vn (0-3)");
+            Serial.println(" FUEL L, R       /Jn /Kn");
+            Serial.println(" VACUUM          /Nn");
+            Serial.println(" OIL PRESS       /Fn");
+            Serial.println(" VOLTS           /Rn");
+            Serial.println("------ OUTPUTS ------");
+            Serial.println(" Button Presses  (try them)");
+            Serial.println("");
           }
-        */
-        break;
+          break;
+
+        // NEXT TOKEN TO PROCESS "<"
+        case '<' : {   // case cToken = <
+            switch (cAction) {    //MASTER switch
+              case 'a' : if (cParam[0] == '0') {
+                  gbMasterVolts = false;
+                }
+                if (cParam[0] == '1') {
+                  gbMasterVolts = true;
+                }
+                break;   //AVIONICS switch
+              case 'g' : if (cParam[0] == '0') {
+                  gbAvionicsVolts = false;
+                }
+                if (cParam[0] == '1') {
+                  gbAvionicsVolts = true;
+                }
+                break;
+              default:   // if other commands come in, ignore them
+                Serial.println("Err <  '" + SerialCmdString + "'");
+                //Serial.println("!<ERR!");
+                break;
+            } // end switch cAtion
+          } // end switch cToken is '<'
+          break;  // break case cToken '<'
+
+        // NEXT cToken to Process '='
+        case '=' :  {
+            switch (cAction) {    // =M1=N0=01=P1 etc, switch functions lights, set the DIG4, SEGx flags
+              case 'M' : if (cParam[0] == '1') {
+                  DIG4_LEDs |= SEGA;
+                } else {
+                  DIG4_LEDs &= ~SEGA;
+                } break;   // COM1
+              case 'N' : if (cParam[0] == '1') {
+                  DIG4_LEDs |= SEGF;
+                } else {
+                  DIG4_LEDs &= ~SEGF;
+                } break;   // COM2
+              case 'O' : if (cParam[0] == '1') {
+                  DIG4_LEDs |= SEGB;
+                } else {
+                  DIG4_LEDs &= ~SEGB;
+                } break;   // BOTH
+              case 'P' : if (cParam[0] == '1') {
+                  DIG4_LEDs |= SEGG;
+                } else {
+                  DIG4_LEDs &= ~SEGG;
+                } break;   // NAV1
+              case 'Q' : if (cParam[0] == '1') {
+                  DIG4_LEDs |= SEGC;
+                } else {
+                  DIG4_LEDs &= ~SEGC;
+                } break;   // NAV2
+              case 'U' : if (cParam[0] == '1') {
+                  DIG4_LEDs |= SEGE;
+                } else {
+                  DIG4_LEDs &= ~SEGE;
+                } break;   // MKR
+              case 'R' : if (cParam[0] == '1') {
+                  DIG4_LEDs |= SEGDP;
+                } else {
+                  DIG4_LEDs &= ~SEGDP;
+                } break; // DME
+              // GPSNAV switch set DIG0, SEGx flags
+              case 'l' : if (cParam[0] == '1') {
+                  DIG0_LEDs = SEGE;
+                } else {
+                  DIG0_LEDs = SEGDP;
+                } break;  // GPS else NAV
+
+              // OMI, 0 = none, 1 = outer (SEGA), 2 = middle (SEGF), 3 = inner (SEGB)
+              case 'V' : if (cParam[0] == '0') {
+                  DIG7_LEDs = 0;  // none
+                }
+                if (cParam[0] == '1') {
+                  DIG7_LEDs = SEGA;  // 1= outer
+                }
+                if (cParam[0] == '2') {
+                  DIG7_LEDs = SEGF;  // 2= middle
+                }
+                if (cParam[0] == '3') {
+                  DIG7_LEDs = SEGB;  // 2= middle
+                }
+                break;
+              default:   // if other commands come in, ignore them
+                // Serial.println("invalid = cmd, use '?' for help...");
+                Serial.println("Err =  '" + SerialCmdString + "'");
+                break;
+            } // end switch (cAction)
+          } // end switch Token is '='
+          break;  // break case cToken '='
+
+        // NEXT cToken to Process '/'
+        case '/' :  {
+            switch (cAction) {
+              case 'J' : if (cParam[0] == '1') {
+                  bLFuelLow = true;
+                } else {
+                  bLFuelLow = false;
+                } break;         // left fuel low
+              case 'K' : if (cParam[0] == '1') {
+                  bRFuelLow = true;
+                } else {
+                  bRFuelLow = false;
+                } break;         // right fuel low
+              case 'N' : if (cParam[0] == '1') {
+                  bLVACLow = true;  // Vacuum
+                } else {
+                  bLVACLow = false;
+                }
+                bRVACLow = bLVACLow;  // only one signal from FSX it seems...
+                break;
+              case 'F' : if (cParam[0] == '1') {
+                  bOILPRESSLow = true;
+                } else {
+                  bOILPRESSLow = false;
+                } break;  // OIL PRESSURE
+              case 'R' : if (cParam[0] == '1') {
+                  bVOLTSLow = true;
+                } else {
+                  bVOLTSLow = false;
+                } break;  // VOLTS
+
+              default:   // if other commands come in, ignore them
+                Serial.println("Err /  '" + SerialCmdString + "'");
+                // Serial.println("invalid / cmd, use '?' for help...");
+                break;
+            } // end switch (cAction)
+          } // end switch Token is '/'
+          break;  // break case cToken '/'
+
+
+        // My custom tokens "@" (not on Jim's software)
+        case '@' :   {
+            switch (cAction) {
+
+              case 'T' : // @T, test / demo, light up all LEDs
+
+                break;
+              case 'P' : // @P, Unit power on or off (really, don't use, rely on <a_ and <g_)
+                if (cParam[0] == '0') {
+                  gbMasterVolts = false;
+                  gbAvionicsVolts = false;
+                }
+                if (cParam[0] == '1') {
+                  gbMasterVolts = true;
+                  gbAvionicsVolts = true;
+                }
+                break;
+
+              /*case 'R': // @R    Software reset the Arduino
+                        Serial.println("Software resetting Arduino...");
+                        soft_restart();
+                        break;*/
+
+  /*
+    case 'B' : { // @B, Brightness, 0 - 15 (zero is NOT off!)
+      int iScratch = atoi(cParam);
+      if (iScratch >= 0 && iScratch <= 15) {
+        LEDIntensity = iScratch;
+        for (int i = 0; i < MAX7219_NUMCHIPS; i++) {
+          lc.setIntensity(i, LEDIntensity);
+        }
+      }
+    }
+    break;
+
+    default:  // if other commands come in, ignore them
+    //Serial.println("invalid @ cmd, use '?' for help...");
+    Serial.println("Err @  '" + SerialCmdString + "'");
+    //Serial.println("!@ERR!");
+    break;
+    }  // end code block
+    } // end switch Token is '@', cAction
+    break;  // break case cToken @
+
+    // ANY OTHER CTOKEN (unrecognized)
+    default:
+    Serial.println("Err '" + SerialCmdString + "'");
+    // ignore null entry, otherwise
+  */
+  /*
+    if (int(cToken) == 0 ) {
+      Serial.println("use '?' for help");
+    } else {
+      Serial.println("invalid token, use '?' for help");
+    }
+  */
+  /*
+    break;
     } // end switch cToken
 
     //
     // post processing, if any
     //
 
-  } // END if SerialInReady
+    } // END if SerialInReady
 
-
+  */
 
 
   // *************************************************************
@@ -523,6 +527,7 @@ void loop() {
   ProcessMomentary(&SW_S1);          // TOGGLE STDBY COM SW
   ProcessMomentary(&SW_S2);          // TOGGLE STDBY INSTRUM SW
 
+  ProcessStatic(&SW_ST1);
   // ***************************************************
   // Switch action, state==2 means pressed and debounced, ready to read
   // ***************************************************
@@ -541,14 +546,14 @@ void loop() {
 
 
   // SEND CMD AND CHANGE TO READY STATE  Act on rotary encoder inc/dec
+
   valueEncoder_E1 += ENC_E1->getValue();
   if (valueEncoder_E1 != lastEncoder_E1) {
+    printNumber(valueEncoder_E1);
     if (valueEncoder_E1 > lastEncoder_E1)  Serial.println("++");
     else Serial.println("--");
-    lastEncoder_E1 = valueEncoder_E1;
-
-
   }
+  lastEncoder_E1 = valueEncoder_E1;
 }
 // *************************************************************
 //   END LOOP CODE
@@ -615,8 +620,8 @@ void ProcessMomentary(struct swmom_ * AnySwitch)
 void ProcessStatic(struct swstatic_ * AnySwitch)
 {
   AnySwitch->state = digitalRead(AnySwitch->pin);
-  if ((AnySwitch->state) != Anyswitch->prec_state) {
-    if ( state == LOW) Serial.println("A01");
+  if (AnySwitch->state != AnySwitch->prec_state) {
+    if ( AnySwitch->state  == LOW) Serial.println("A01");
     else Serial.println("A02");
   }
   AnySwitch->prec_state = AnySwitch->state;
@@ -631,10 +636,11 @@ void InitStatic(struct swstatic_ * AnySwitch)
 {
   AnySwitch->state = digitalRead(AnySwitch->pin);
   AnySwitch->prec_state = AnySwitch->state;
-  if ((AnySwitch->state == LOW)) {
+  if ((AnySwitch->state == LOW))
     Serial.println("A01");
-    else Serial.println("A02");
-  }
+
+  else Serial.println("A02");
+
 
 }
 
@@ -721,3 +727,38 @@ void serialEvent() {
     }
   } // end while
 } // end SerialEvent handler
+
+// *************************************************************
+//   printNumber(num)
+//   Convert integer
+//
+// *************************************************************
+void printNumber(int v) {
+  int ones;
+  int tens;
+  int hundreds;
+  boolean negative;
+
+  if (v < 0) {
+    negative = true;
+    lc.setChar(0, 3, '-', false);
+    v = v * -1;
+  }
+  else {
+    //print a blank in the sign column
+    lc.setRow(0, 3, B00000000);
+  }
+  ones = v % 10;
+  v = v / 10;
+  tens = v % 10;
+  v = v / 10;
+  hundreds = v;
+
+
+
+
+//Now print the number digit by digit
+lc.setDigit(0, 2, (byte)hundreds, false);
+lc.setDigit(0, 1, (byte)tens, false);
+lc.setDigit(0, 0, (byte)ones, false);
+}
