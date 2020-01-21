@@ -1,0 +1,1043 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 9">
+<meta name=Originator content="Microsoft Word 9">
+<link rel=File-List href="./Multi_Radio_files/filelist.xml">
+<link rel=Edit-Time-Data href="./Multi_Radio_files/editdata.mso">
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]-->
+<title>FSX nav/com radio project arduino2 mega arduino duemilanove Uno flight
+simulator link2fs</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>Jim</o:Author>
+  <o:Template>Normal</o:Template>
+  <o:LastAuthor>jumm</o:LastAuthor>
+  <o:Revision>2</o:Revision>
+  <o:TotalTime>4004</o:TotalTime>
+  <o:Created>2013-10-07T03:37:00Z</o:Created>
+  <o:LastSaved>2013-10-07T03:37:00Z</o:LastSaved>
+  <o:Pages>8</o:Pages>
+  <o:Words>1200</o:Words>
+  <o:Characters>6841</o:Characters>
+  <o:Lines>57</o:Lines>
+  <o:Paragraphs>13</o:Paragraphs>
+  <o:CharactersWithSpaces>8401</o:CharactersWithSpaces>
+  <o:Version>9.2720</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:Zoom>BestFit</w:Zoom>
+  <w:DisplayHorizontalDrawingGridEvery>0</w:DisplayHorizontalDrawingGridEvery>
+  <w:DisplayVerticalDrawingGridEvery>0</w:DisplayVerticalDrawingGridEvery>
+  <w:UseMarginsForDrawingGridOrigin/>
+  <w:Compatibility>
+   <w:FootnoteLayoutLikeWW8/>
+   <w:ShapeLayoutLikeWW8/>
+   <w:AlignTablesRowByRow/>
+   <w:ForgetLastTabAlignment/>
+   <w:LayoutRawTableWidth/>
+   <w:LayoutTableRowsApart/>
+  </w:Compatibility>
+ </w:WordDocument>
+</xml><![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+@font-face
+	{font-family:Helvetica;
+	panose-1:2 11 6 4 2 2 2 2 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:swiss;
+	mso-font-pitch:variable;
+	mso-font-signature:536902279 -2147483648 8 0 511 0;}
+ /* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+h1
+	{mso-style-next:Normal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:1;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-font-kerning:0pt;}
+h2
+	{mso-style-next:Normal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:2;
+	font-size:10.0pt;
+	font-family:"Times New Roman";}
+h3
+	{mso-style-next:Normal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:3;
+	font-size:12.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:"Times New Roman";
+	text-decoration:underline;
+	text-underline:single;}
+h4
+	{mso-style-next:Normal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:4;
+	font-size:11.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:"Times New Roman";
+	text-decoration:underline;
+	text-underline:single;}
+h5
+	{mso-style-next:Normal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:5;
+	font-size:12.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:"Times New Roman";
+	font-weight:normal;}
+h6
+	{mso-style-next:Normal;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:2.0in;
+	margin-bottom:.0001pt;
+	text-indent:.5in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:6;
+	font-size:18.0pt;
+	font-family:Helvetica;
+	text-decoration:underline;
+	text-underline:single;}
+p.MsoHeading7, li.MsoHeading7, div.MsoHeading7
+	{mso-style-next:Normal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:7;
+	font-size:14.0pt;
+	mso-bidi-font-size:18.0pt;
+	font-family:Helvetica;
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoBodyText, li.MsoBodyText, div.MsoBodyText
+	{margin-top:0in;
+	margin-right:1.25in;
+	margin-bottom:0in;
+	margin-left:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	tab-stops:639.0pt;
+	font-size:9.0pt;
+	font-family:Helvetica;
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";}
+p.MsoBodyText2, li.MsoBodyText2, div.MsoBodyText2
+	{margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:11.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoBodyText3, li.MsoBodyText3, div.MsoBodyText3
+	{margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	text-decoration:underline;
+	text-underline:single;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;
+	text-underline:single;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+-->
+</style>
+<!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="1161">
+  <o:colormenu v:ext="edit" fillcolor="#fc9"/>
+ </o:shapedefaults></xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body bgcolor=white background="./Multi_Radio_files/image001.jpg" lang=EN-US
+link=blue vlink=purple style='tab-interval:.5in'>
+<!--[if gte mso 9]><xml>
+ <v:background id="_x0000_s1158" o:bwmode="white" o:targetscreensize="800,600">
+  <v:fill src="./Multi_Radio_files/image001.jpg" o:title="clouds3" type="frame"/>
+ </v:background></xml><![endif]-->
+
+<div class=Section1>
+
+<p class=MsoNormal><span style='font-size:18.0pt;font-family:Helvetica'><span
+style="mso-spacerun: yes">  </span></span><span style='font-size:24.0pt;
+mso-bidi-font-size:18.0pt;font-family:Helvetica'><span style="mso-spacerun:
+yes">            </span><b><u>Arduino Radio Panel for<span style="mso-spacerun:
+yes">  </span>M$<span style="mso-spacerun: yes">  </span>FSX<o:p></o:p></u></b></span></p>
+
+<p class=MsoNormal><span style='font-size:18.0pt;font-family:Helvetica'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoHeading7><span style="mso-spacerun:
+yes">                                  </span>Using the<span
+style="mso-spacerun: yes">  </span>ARDUINO<span style="mso-spacerun: yes"> 
+</span>UNO<span style="mso-spacerun: yes">  </span>or<span style="mso-spacerun:
+yes">  </span>MEGA<span style="mso-spacerun: yes">  </span>Card.<span
+style="mso-spacerun: yes">    </span><span lang=EN-AU style='mso-bidi-font-size:
+9.0pt;mso-ansi-language:EN-AU'><o:p></o:p></span></p>
+
+<p class=MsoBodyText><span lang=EN-AU style='font-size:11.0pt;mso-bidi-font-size:
+9.0pt;mso-ansi-language:EN-AU'>&nbsp;<o:p></o:p></span></p>
+
+<p class=MsoBodyText><span lang=EN-AU style='font-size:18.0pt;mso-bidi-font-size:
+9.0pt;font-family:"Times New Roman";mso-ansi-language:EN-AU'><span
+style="mso-spacerun: yes">          </span><u><span style='color:red'>This
+project will only work using “Link2fs_Multi”</span></u><span style='color:red'>
+</span></span><span lang=EN-AU style='font-size:12.0pt;mso-bidi-font-size:9.0pt;
+font-family:"Times New Roman";color:black;mso-ansi-language:EN-AU'>(v5c
+upwards)<o:p></o:p></span></p>
+
+<p class=MsoBodyText><span lang=EN-AU style='font-size:12.0pt;mso-bidi-font-size:
+9.0pt;font-family:"Times New Roman";color:black;mso-ansi-language:EN-AU'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoBodyText><b><u><span lang=EN-AU style='font-size:12.0pt;mso-bidi-font-size:
+9.0pt;font-family:"Times New Roman";color:red;mso-ansi-language:EN-AU'>UPDATED
+Oct 2013</span></u></b><b><span lang=EN-AU style='font-size:12.0pt;mso-bidi-font-size:
+9.0pt;font-family:"Times New Roman";color:black;mso-ansi-language:EN-AU'><span
+style="mso-spacerun: yes">  </span>,,</span></b><span lang=EN-AU
+style='font-size:12.0pt;mso-bidi-font-size:9.0pt;font-family:"Times New Roman";
+color:black;mso-ansi-language:EN-AU'> Now the diagram shows the connections for
+driving the backlight LED in some LCD’s.</span><u><span lang=EN-AU
+style='font-size:18.0pt;mso-bidi-font-size:9.0pt;font-family:"Times New Roman";
+color:red;mso-ansi-language:EN-AU'><o:p></o:p></span></u></p>
+
+<p class=MsoBodyText><span lang=EN-AU style='font-size:18.0pt;mso-bidi-font-size:
+9.0pt;font-family:"Times New Roman";mso-ansi-language:EN-AU'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoBodyText><b><u><span lang=EN-AU style='font-size:22.0pt;mso-bidi-font-size:
+9.0pt;font-family:"Times New Roman";color:red;mso-ansi-language:EN-AU'>Radio
+Panel Project.</span></u></b><span style='font-size:12.0pt;mso-bidi-font-size:
+10.0pt;font-family:"Times New Roman";color:red'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><b><u><span style='font-size:14.0pt;mso-bidi-font-size:10.0pt'>The
+start ,,,,</span></u></b><span style='font-size:14.0pt;mso-bidi-font-size:10.0pt'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>The
+is actually an old project that I made for the “InOut” program where I wanted
+to have a complete radio setup using <o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>the
+minimum of<span style="mso-spacerun: yes">  </span>hardware<span
+style="mso-spacerun: yes">  </span>,,, just to prove it can be done.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>You
+can see a real early prototype actually going here ,,,,<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><a
+href="http://www.youtube.com/watch?v=iYNgWxRpMnM">http://www.youtube.com/watch?v=iYNgWxRpMnM</a>
+<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>I
+converted it to Link2fs_Multi type code and it works a wee treat.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>You
+can see how I put a “Front” on it here ,,,,<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><a
+href="http://www.jimspage.co.nz/makepanel.htm">http://www.jimspage.co.nz/makepanel.htm</a>
+<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><!--[if gte vml 1]><v:shapetype id="_x0000_t75" coordsize="21600,21600"
+ o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe" filled="f"
+ stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="_x0000_s1146" type="#_x0000_t75" style='position:absolute;
+ margin-left:50.55pt;margin-top:3.2pt;width:425.25pt;height:200.25pt;z-index:2;
+ mso-position-horizontal:absolute;mso-position-vertical:absolute'>
+ <v:imagedata src="./Multi_Radio_files/image002.jpg" o:title="radiopanel"/>
+</v:shape><![endif]--><![if !vml]><span style='mso-ignore:vglayout'>
+
+<table cellpadding=0 cellspacing=0 align=left>
+ <tr>
+  <td width=67 height=4></td>
+ </tr>
+ <tr>
+  <td></td>
+  <td><img width=567 height=267 src="./Multi_Radio_files/image002.jpg" v:shapes="_x0000_s1146"></td>
+ </tr>
+</table>
+
+</span><![endif]><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<br style='mso-ignore:vglayout' clear=ALL>
+
+<p class=MsoNormal><b><u><span style='font-size:14.0pt;mso-bidi-font-size:10.0pt'>First
+you need ,,,<o:p></o:p></span></u></b></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>An
+Arduino Uno or Mega card<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>1<span
+style="mso-spacerun: yes">  </span>LCD display (1602)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>1
+Potentiometer 10K linear. (Variable resistor for Contrast)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>1<span
+style="mso-spacerun: yes">  </span>Rotary switch 7 position. (A cheap 12 position
+switch but used only on 7 positions)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>1<span
+style="mso-spacerun: yes">  </span>Rotary Encoder with push switch (You push
+the knob and a switch closes)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>1<span
+style="mso-spacerun: yes">  </span>Momentary push button switch’s.<span
+style="mso-spacerun: yes">  </span>(Normally open type)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>1<span
+style="mso-spacerun: yes">  </span>box or a wee panel to set this all up on.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>For
+the Mega ,, you have the option of including the annunciators so for the extra
+hardware have a look here ,,,<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><a
+href="http://www.jimspage.co.nz/Multi_Annunciators.htm">http://www.jimspage.co.nz/Multi_Annunciators.htm</a>
+<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><b><u><span style='font-size:14.0pt;mso-bidi-font-size:10.0pt'>If
+you have a UNO card ,,,, <o:p></o:p></span></u></b></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Wire
+up your bits and pieces as per this,,, <o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><!--[if gte vml 1]><v:shape id="_x0000_s1151" type="#_x0000_t75"
+ style='position:absolute;margin-left:14.55pt;margin-top:6.95pt;width:603pt;
+ height:427pt;z-index:3;mso-position-horizontal:absolute;
+ mso-position-vertical:absolute'>
+ <v:imagedata src="./Multi_Radio_files/image003.png" o:title="Link2fs radiohead uno1"/>
+</v:shape><![endif]--><![if !vml]><span style='mso-ignore:vglayout'>
+
+<table cellpadding=0 cellspacing=0 align=left>
+ <tr>
+  <td width=19 height=9></td>
+ </tr>
+ <tr>
+  <td></td>
+  <td><img width=804 height=570 src="./Multi_Radio_files/image004.gif"
+  alt="Mona Lisa" v:shapes="_x0000_s1151"></td>
+ </tr>
+</table>
+
+</span><![endif]><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<br style='mso-ignore:vglayout' clear=ALL>
+
+<p class=MsoNormal><b><u><span style='font-size:14.0pt;mso-bidi-font-size:10.0pt'>Or
+,, if you have a MEGA card ,,,, <o:p></o:p></span></u></b></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>With
+the Mega you have the option to just wire it the same as the Uno (taking
+particular note of the location of pins 14 to 21) or you can combine it with a set
+of annunciators as shown on ,,,<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><a
+href="http://www.jimspage.co.nz/Multi_Annunciators.htm">http://www.jimspage.co.nz/Multi_Annunciators.htm</a>
+<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>There
+is no need to actually wire up the annuciators to make the radio work ,, it’s
+just included in the INO for easy expansion.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>As
+the Mega has lots of spare pins ,, I have included code so you can easily add
+more switchs or LED’s etc. <o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>An
+obvious addition would be the audio buttons for the radio and send the commands
+straight to simconnect.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>These
+codes are already in the “Multi” and I have marked where they would go in the
+“INPUTPINS” void.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Wire
+up your bits and pieces as per this,,, <o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><!--[if gte vml 1]><v:shape id="_x0000_s1160" type="#_x0000_t75"
+ style='position:absolute;margin-left:5.55pt;margin-top:1.7pt;width:621pt;
+ height:439.9pt;z-index:4;mso-position-horizontal:absolute;
+ mso-position-vertical:absolute'>
+ <v:imagedata src="./Multi_Radio_files/image005.png" o:title="Multi radio and annun Mega2oct"/>
+</v:shape><![endif]--><![if !vml]><span style='mso-ignore:vglayout'>
+
+<table cellpadding=0 cellspacing=0 align=left>
+ <tr>
+  <td width=7 height=2></td>
+ </tr>
+ <tr>
+  <td></td>
+  <td><img width=828 height=587 src="./Multi_Radio_files/image006.gif" v:shapes="_x0000_s1160"></td>
+ </tr>
+</table>
+
+</span><![endif]><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<br style='mso-ignore:vglayout' clear=ALL>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>In
+the download there are better pictures so you can zoom into the detail while
+you build it.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(The
+“png” files have the best resolution for zooming in on)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Note
+that pin 13 is connected to GND. (Stops it “fluttering” in the “read pin state”
+loop)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>There
+is nothing complicated about it ,,, just do one thing at a time and all will be
+well.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>In
+the case of the Mega ,,do the radio first and add the annunciators later if you
+want.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>You
+can download this project here ,,,,<o:p></o:p></span></p>
+
+<p class=MsoNormal><b><span style='font-size:20.0pt;mso-bidi-font-size:10.0pt'><a
+href="http://www.jimspage.co.nz/Link2fs_Multi_Radio.zip">http://www.jimspage.co.nz/Link2fs_Multi_Radio.zip</a></span></b><span
+style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>The
+package contains the INO’s for the Uno and Mega, and a copy of this webpage.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>These
+INO’s were compiled using Arduino’s IDE version 1.1<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><b><span style='font-size:16.0pt;mso-bidi-font-size:10.0pt'>Next
+,,,<span style="mso-spacerun: yes">  </span>load the appropriate INO</span></b><span
+style='font-size:12.0pt;mso-bidi-font-size:10.0pt'> (Uno or Mega) file into
+your Arduino ,, if you don’t know how to do that then read,,,,<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><a
+href="http://www.jimspage.co.nz/how_to_pde.htm">http://www.jimspage.co.nz/how_to_pde.htm</a></span><span
+style='font-size:16.0pt;mso-bidi-font-size:10.0pt'><span style="mso-spacerun:
+yes">  </span><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(
+An<span style="mso-spacerun: yes">  </span>INO and a PDE are the same thing ,,
+it’s the code that gets put into the Arduino)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>For
+the rotary encoder you will need the rotary encoder library “quadrature2”
+available here ,,,,<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><a
+href="http://www.jimspage.co.nz/encoders2.htm">http://www.jimspage.co.nz/encoders2.htm</a>
+<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Make
+sure you get “quadrature2.zip” ,,, it is modified to suit the later versions of
+the Arduino software but you<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>are
+free to modify my code and use any encoder library you want.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><b><u><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Serial
+data flow</span></u></b><b><span style='font-size:12.0pt;mso-bidi-font-size:
+10.0pt'> ,,,,<o:p></o:p></span></b></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>This
+project recieves a lot of data from FSX especially in the “refresh” cycle ,,
+and it can push the Arduino’s serial receiver buffer beyond it’s limit.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>What
+happens is it will chop off any serial data that is in excess of the buffer
+limit.<span style="mso-spacerun: yes">  </span>You can see the affects of this
+when you first connect and the radio might light up fine but has some of my
+identifiers (= or ? etc) in the text screen for some readouts (ADF or xponder)
+,, or in the case of the Mega ,,, same thing or the gear indication wont
+indicate if the wheels are down when first connected. So read this ,,,<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><a
+href="http://www.jimspage.co.nz/serial_buffer_mod.htm">http://www.jimspage.co.nz/serial_buffer_mod.htm</a>
+<o:p></o:p></span></p>
+
+<h1><u><span style='font-size:14.0pt;mso-bidi-font-size:10.0pt;color:red'>I<span
+style="mso-spacerun: yes">  </span>adjusted mine to 64 and 256<o:p></o:p></span></u></h1>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>All
+was fine then.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>After
+editing it ,, you need to recompile and load your INO into the Arduino again.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Next,
+download my “Link2fs_Multi” program ,,,,<o:p></o:p></span></p>
+
+<p class=MsoNormal><b><span style='font-size:20.0pt;mso-bidi-font-size:10.0pt'><a
+href="http://www.jimspage.co.nz/Link2fs_Multi.htm">http://www.jimspage.co.nz/Link2fs_Multi.htm</a>
+<o:p></o:p></span></b></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(I
+haven’t included it with this download as I am continually updating the “Multi”
+at the moment.)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>It
+is NOT an “install” but a stand-alone program ,,, you make a folder and just unzip
+the “Multi” into that new folder.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Ignore
+all the “Demo” INO’s etc that came with the Multi” ,, all you need is the
+“Link2fs_Multi.exe” program.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Start
+“Link2fs_Multi” and check in “Extractions” that it is receiving data from FSX.
+(FSX needs to be running !!<span style="mso-spacerun: yes">  </span>)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>If
+it don’t run at all then you’ve done something wrong OR you need to install the
+“.Net” framework into your computer (Minimum, framework 2)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>or
+fiddle your UAC settings or<span style="mso-spacerun: yes">  </span>right click
+on it and “run as administrator:” etc etc ,, your on your own here I’m afraid.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><b><span style='font-size:16.0pt;mso-bidi-font-size:10.0pt'>Have
+the Arduino INO loaded and the Arduino connected to the computer.<o:p></o:p></span></b></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>I
+used the BARON for all my setting up so until you get used to what is happening
+and understand how to change the parameters ,, use the BARON.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>OK
+lets set all the ‘Link2fs_Multi’ settings ,,,,<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>In
+“SimConnect Extractions(1)” tick ,, <o:p></o:p></span></b></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>=A<span
+style="mso-spacerun: yes">    </span>Com1<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>=B<span
+style="mso-spacerun: yes">    </span>Com1s/b<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>=C<span
+style="mso-spacerun: yes">    </span>Com2<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>=D<span
+style="mso-spacerun: yes">    </span>Com2s/b<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>=E<span
+style="mso-spacerun: yes">    </span>Nav1<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>=F<span
+style="mso-spacerun: yes">    </span>Nav1s/b<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>=G<span
+style="mso-spacerun: yes">    </span>Nav2<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>=H<span
+style="mso-spacerun: yes">    </span>Nav2s/b<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>=I<span
+style="mso-spacerun: yes">     </span>ADF<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>=J<span
+style="mso-spacerun: yes">     </span>Transponder<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>=K<span
+style="mso-spacerun: yes">    </span>DME1<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>=L<span
+style="mso-spacerun: yes">     </span>DME2<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>In
+“SimConnect Extractions(2)” tick ,,<span style="mso-spacerun: yes">  </span></span></b><span
+style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>(If used ,, Mega only)<b><o:p></o:p></b></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>?Y
+(Gear position simple)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>In
+“Annunciators” tick ,,<span style="mso-spacerun: yes">   </span></span></b><span
+style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>( If used ,, Mega only)<b><o:p></o:p></b></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>/B1
+(Overspeed flaps @ 140)<span style="mso-spacerun: yes">      </span>(Set the
+actual figure to suit the plane later)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>/C1
+(Overspeed Gear @ 160)<span style="mso-spacerun: yes">     </span>(Set the
+actual figure to suit the plane later)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>/D1
+(Overspeed Frame @ 180)<span style="mso-spacerun: yes">   </span>(Set the
+actual figure to suit the plane later)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>/E1
+(Airspeed<span style="mso-spacerun: yes">  </span>Stall @ 80)<span
+style="mso-spacerun: yes">          </span>(Set the actual figure to suit the
+plane later)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>/H1
+(Total Fuel under 5%)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>In
+“Communications Settings” set ,,</span></b><span style='font-size:12.0pt;
+mso-bidi-font-size:10.0pt'><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Cycle
+time to 100<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Refresh
+time to 10 (Once your all set you can actually turn this off if you like. (0)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Now
+,, sure nothing else on any of the other pages are ticked ,, then hit the SAVE
+button.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Now
+go back to the “Communications Settings” page and connect to your Arduino.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>If
+you’ve done everything properly ,,, it should now be working ,, hit SAVE again.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>You
+should see data going “to” the card and when you turn the encoder, you will see
+data coming back “from” the card. (It needs to be set on a radio frequency)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Happy
+testing and fiddling.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>If
+things DON’T work then check everything you have done ,,, this worked for me
+and what I’ve posted here works fine in my setup.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>I
+don’t offer any help with INO’s ,, your on your own on that one.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>These
+INO’s are not really “Starter” INO for some-one to learn from ,, they do
+however show the huge advantage of using separate voids.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>There
+are plenty of starter files included with the Multi download but if that is too
+much then go back to my site and download the older “InOut” <o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>program
+and learn basic INO programming with it or play with the Arduino using
+Arduino’s own samples. <o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Also
+note that I am using pins 2 to 7 to drive the LCD which is not the way the
+Arduino boys show on all their diagrams.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>It
+seems to work fine tho but it may be compromising a bit of speed ,, I don’t
+know ,, I never tried it the “Arduino way”.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><b><u><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Support….<o:p></o:p></span></u></b></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>The
+same as all my other stuff,,, <o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Use
+at your own risk.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>There
+is NO support.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>This
+is what I done ,,, It worked for me.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>If
+it don’t work for you, then go and try something else.<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>Updated
+6 Oct 2013 added wiring for LED backlit LCD’s<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:11.0pt;mso-bidi-font-size:10.0pt'>Dated<span
+style="mso-spacerun: yes">   </span>19 July 2013<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:11.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><!--[if gte vml 1]><v:shapetype id="_x0000_t176"
+ coordsize="21600,21600" o:spt="176" adj="2700" path="m@0,0qx0@0l0@2qy@0,21600l@1,21600qx21600@2l21600@0qy@1,0xe">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="val #0"/>
+  <v:f eqn="sum width 0 #0"/>
+  <v:f eqn="sum height 0 #0"/>
+  <v:f eqn="prod @0 2929 10000"/>
+  <v:f eqn="sum width 0 @3"/>
+  <v:f eqn="sum height 0 @3"/>
+  <v:f eqn="val width"/>
+  <v:f eqn="val height"/>
+  <v:f eqn="prod width 1 2"/>
+  <v:f eqn="prod height 1 2"/>
+ </v:formulas>
+ <v:path gradientshapeok="t" limo="10800,10800" o:connecttype="custom"
+  o:connectlocs="@8,0;0,@9;@8,@7;@6,@9" textboxrect="@3,@3,@4,@5"/>
+</v:shapetype><v:shape id="_x0000_s1073" type="#_x0000_t176"
+ href="http://www.jimspage.co.nz/intro.htm" style='position:absolute;
+ margin-left:257.55pt;margin-top:13pt;width:193.05pt;height:27pt;z-index:1;
+ mso-position-horizontal:absolute;mso-position-vertical:absolute' o:button="t"
+ fillcolor="yellow">
+ <v:fill o:detectmouseclick="t"/>
+ <v:textbox style='mso-next-textbox:#_x0000_s1073'>
+  <![if !mso]>
+  <table cellpadding=0 cellspacing=0 width="100%">
+   <tr>
+    <td><![endif]>
+    <div>
+    <h1><span style="mso-spacerun: yes"> </span>Back to the simulator main
+    page.</h1>
+    </div>
+    <![if !mso]></td>
+   </tr>
+  </table>
+  <![endif]></v:textbox>
+</v:shape><![endif]--><![if !vml]><span style='mso-ignore:vglayout'>
+
+<table cellpadding=0 cellspacing=0 align=left>
+ <tr>
+  <td width=343 height=17></td>
+ </tr>
+ <tr>
+  <td></td>
+  <td><map name=MicrosoftOfficeMap0><area shape=Polygon
+   coords="5, 0, 0, 1, 0, 1, 0, 5, 0, 32, 0, 35, 0, 36, 5, 36, 254, 36, 254, 36, 259, 35, 259, 32, 259, 5, 259, 1, 254, 1, 254, 0, 5, 0"
+   href="http://www.jimspage.co.nz/intro.htm"></map><img border=0 width=261
+  height=39 src="./Multi_Radio_files/image007.gif" usemap="#MicrosoftOfficeMap0"
+  alt="Flowchart: Alternate Process:  Back to the simulator main page." v:shapes="_x0000_s1073"></td>
+ </tr>
+</table>
+
+</span><![endif]><span style='font-size:11.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:11.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:11.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:11.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:11.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:11.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<br style='mso-ignore:vglayout' clear=ALL>
+
+<p class=MsoNormal style='tab-stops:459.75pt'><span style='font-size:11.0pt;
+mso-bidi-font-size:10.0pt'><span style='mso-tab-count:1'>                                                                                                                                                         </span><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal style='tab-stops:459.75pt'><span style='font-size:11.0pt;
+mso-bidi-font-size:10.0pt'><span style='mso-tab-count:1'>                                                                                                                                                         </span><o:p></o:p></span></p>
+
+</div>
+
+</body>
+
+</html>
