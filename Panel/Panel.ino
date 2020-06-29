@@ -27,7 +27,7 @@ String ProjVersion = "/*********************************************************
 //  MAX7219 DISPLAY Constant setting
 // *************************************************************
 #define LED_INTENSITY 5
-#define MAX_NUMCHIPS 1
+#define MAX_NUMCHIPS 2
 
 // *************************************************************
 //  PINOUT setting
@@ -182,6 +182,13 @@ void setup() {
   lc.setIntensity(0, LED_INTENSITY);            // set intensity
   lc.clearDisplay(0);                // clear display
 
+  // Same routine for MAX nr 2 
+  lc.shutdown(1, false);             // wake up MAX7219
+  lc.setIntensity(1, LED_INTENSITY);            // set intensity
+  lc.clearDisplay(1);                // clear display
+
+
+  
   // Switches, set the pins for pullup mode  READ THIS!!! --> https://www.arduino.cc/en/Tutorial/DigitalPins
   pinMode(SW_S1.pin, INPUT_PULLUP);
   pinMode(SW_S2.pin, INPUT_PULLUP);
@@ -216,7 +223,7 @@ void setup() {
 
   // flicker everything really quickly just to show it's running to user
 
-  // light up everything
+  // light up everything MAX NR 1
 
   for (int j = 0; j <= 1; j++) {
     for (int i = 7; i >= 0; i--) {
@@ -226,8 +233,17 @@ void setup() {
       delay(100);
       lc.setRow(0, i, B00000000); // SWITCH LEDS
     }
+ } 
+  // light up everything  MAX NR 2
+  for (int j = 0; j <= 1; j++) {
+    for (int i = 7; i >= 0; i--) {
+      lc.setRow(1, i, B10000000); // SWITCH LEDS
+      delay(10);
+      lc.setRow(1, i, B11111111); // SWITCH LEDS
+      delay(100);
+      lc.setRow(1, i, B00000000); // SWITCH LEDS
+    }
   }
-
 
   // Wait X milliseconds then powerdown displays and wait for commands from host
   // turn everything off
