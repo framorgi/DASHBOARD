@@ -145,7 +145,7 @@ boolean SerialInReady = false;      // whether the string is complete
 String  SerialCmdString = "";       // a string to hold broken up commands (reserved in SETUP)
 boolean SerialCmdReady = false;     // whether the command is ready
 
-
+String freqComOneString = "";       // COM 1 Frequency String
 
 // *************************************************************
 //   GENERIC variables
@@ -182,13 +182,13 @@ void setup() {
   lc.setIntensity(0, LED_INTENSITY);            // set intensity
   lc.clearDisplay(0);                // clear display
 
-  // Same routine for MAX nr 2 
+  // Same routine for MAX nr 2
   lc.shutdown(1, false);             // wake up MAX7219
   lc.setIntensity(1, LED_INTENSITY);            // set intensity
   lc.clearDisplay(1);                // clear display
 
 
-  
+
   // Switches, set the pins for pullup mode  READ THIS!!! --> https://www.arduino.cc/en/Tutorial/DigitalPins
   pinMode(SW_S1.pin, INPUT_PULLUP);
   pinMode(SW_S2.pin, INPUT_PULLUP);
@@ -207,6 +207,7 @@ void setup() {
   Serial.begin(115200);  // output
   SerialInString.reserve(200);        //  IN reserve 200 bytes for the inputString
   SerialCmdString.reserve(200);       //  OUT reserve another 200 for post processor
+  freqComOneString.reserve(10);       //  Buffer frequency COM 1 String
   /*
     while (!Serial) {
     ; // wait for serial port to connect (you have to send something to Arduino)
@@ -233,7 +234,7 @@ void setup() {
       delay(100);
       lc.setRow(0, i, B00000000); // SWITCH LEDS
     }
- } 
+  }
   // light up everything  MAX NR 2
   for (int j = 0; j <= 1; j++) {
     for (int i = 7; i >= 0; i--) {
@@ -283,137 +284,154 @@ void loop() {
   // *************************************************************
 
 
-    if ( IsSerialCommand() )  {
-      int iLen = SerialCmdString.length();
-      Serial.print("Got string len "); Serial.println(iLen); Serial.print("Got: [");  Serial.print(SerialCmdString); Serial.println("]");
-      char cToken; char cAction; char *cParam; 
-      cToken   = SerialCmdString[0];
-      cAction  = SerialCmdString[1];
-      cParam = &(SerialCmdString[2]);   //cParam is a pointer, assigned to address of 3rd char in SerialCmdString
-      //Serial.print("cToken  = "); Serial.println(cToken);
-      //Serial.print("cAction = "); Serial.println(cAction);
-      //Serial.print("cParam  = "); Serial.println(cParam);
-      //Quick monitor
-      //Serial.print("TAP ["); Serial.print(cToken); Serial.print(cAction); Serial.print(cParam); Serial.println("]");
-      // cToken  ?, /, <, = etc
-      // cAction M, J, E, etc
-      // cParam  0, 1, or longer values
+  if ( IsSerialCommand() )  {
+    int iLen = SerialCmdString.length();
+    Serial.print("Got string len "); Serial.println(iLen); Serial.print("Got: [");  Serial.print(SerialCmdString); Serial.println("]");
+    char cToken; char cAction; char *cParam;
+    cToken   = SerialCmdString[0];
+    cAction  = SerialCmdString[1];
+    cParam = &(SerialCmdString[2]);   //cParam is a pointer, assigned to address of 3rd char in SerialCmdString
+    //Serial.print("cToken  = "); Serial.println(cToken);
+    //Serial.print("cAction = "); Serial.println(cAction);
+    //Serial.print("cParam  = "); Serial.println(cParam);
+    //Quick monitor
+    //Serial.print("TAP ["); Serial.print(cToken); Serial.print(cAction); Serial.print(cParam); Serial.println("]");
+    // cToken  ?, /, <, = etc
+    // cAction M, J, E, etc
+    // cParam  0, 1, or longer values
 
-      // Process the command sent in
-      switch (cToken) {
+    // Process the command sent in
+    switch (cToken) {
 
-        case '?' :  {    // case cToken = ?
-            Serial.println("");
-            Serial.println("------ INPUTS ------");
-            Serial.println(" Power           @Pn  (0/1)");
-            Serial.println(" REBOOT Arduino  @R");
-            Serial.println(" TEST Mode       @Tn (0/1)");
-            Serial.println(" Brightness      @Bnn (0-15) [10]");
-            Serial.println(" MASTER power    <an  (0/1)");
-            Serial.println(" AVIONICS power  <gn  (0/1)");
-            Serial.println(" Switch lights   =Mn=Nn=On=Pn=Qn=Rn (0/1)");
-            Serial.println(" NAV GPS switch  =ln (0/1)");
-            Serial.println(" OMI lights      =Vn (0-3)");
-            Serial.println(" FUEL L, R       /Jn /Kn");
-            Serial.println(" VACUUM          /Nn");
-            Serial.println(" OIL PRESS       /Fn");
-            Serial.println(" VOLTS           /Rn");
-            Serial.println("------ OUTPUTS ------");
-            Serial.println(" Button Presses  (try them)");
-            Serial.println("");
+      case '?' :  {    // case cToken = ?
+          Serial.println("");
+          Serial.println("------ INPUTS ------");
+          Serial.println(" Power           @Pn  (0/1)");
+          Serial.println(" REBOOT Arduino  @R");
+          Serial.println(" TEST Mode       @Tn (0/1)");
+          Serial.println(" Brightness      @Bnn (0-15) [10]");
+          Serial.println(" MASTER power    <an  (0/1)");
+          Serial.println(" AVIONICS power  <gn  (0/1)");
+          Serial.println(" Switch lights   =Mn=Nn=On=Pn=Qn=Rn (0/1)");
+          Serial.println(" NAV GPS switch  =ln (0/1)");
+          Serial.println(" OMI lights      =Vn (0-3)");
+          Serial.println(" FUEL L, R       /Jn /Kn");
+          Serial.println(" VACUUM          /Nn");
+          Serial.println(" OIL PRESS       /Fn");
+          Serial.println(" VOLTS           /Rn");
+          Serial.println("------ OUTPUTS ------");
+          Serial.println(" Button Presses  (try them)");
+          Serial.println("");
+        }
+        break;
+
+      // NEXT TOKEN TO PROCESS "<"
+      /* case '<' : {   // case cToken = <
+           switch (cAction) {    //MASTER switch
+             case 'a' : if (cParam[0] == '0') {
+                 gbMasterVolts = false;
+               }
+               if (cParam[0] == '1') {
+                 gbMasterVolts = true;
+               }
+               break;   //AVIONICS switch
+             case 'g' : if (cParam[0] == '0') {
+                 gbAvionicsVolts = false;
+               }
+               if (cParam[0] == '1') {
+                 gbAvionicsVolts = true;
+               }
+               break;
+             default:   // if other commands come in, ignore them
+               Serial.println("Err <  '" + SerialCmdString + "'");
+               //Serial.println("!<ERR!");
+               break;
+           } // end switch cAtion
+         } // end switch cToken is '<'
+         break;  // break case cToken '<'
+      */
+      // NEXT cToken to Process '='
+      case '=' :  {
+          switch (cAction) {    // =M1=N0=01=P1 etc, switch functions lights, set the DIG4, SEGx flags
+            case 'A' :
+              freqComOneString = ""; //clear buffer
+              printFreq(0, freqComOneString);
+              int index = 0;
+              while (cParam[index] != '.') {
+                freqComOneString += cParam[index];
+
+                Serial.print("Parsing "); Serial.println(index);
+
+                index++;
+              }
+              Serial.print("Freq "); Serial.println(freqComOneString);
+              while (cParam[index] != '\0') {
+                freqComOneString += cParam[index];
+                index++;
+              }
+              Serial.print("Freq "); Serial.println(freqComOneString);
+
+              printFreq(0, freqComOneString);
+              break;   // COM1
+
+            case 'B' :
+              printNumber(cParam);
+              break;   // COM1
+
+
+
+            default:   // if other commands come in, ignore them
+              // Serial.println("invalid = cmd, use '?' for help...");
+              Serial.println("Err =  '" + SerialCmdString + "'");
+              break;
+
+
+          } // end switch (cAction)
+        } // end switch Token is '='
+        break;  // break case cToken '='
+
+      // NEXT cToken to Process '/'
+      case '/' :  {
+          switch (cAction) {
+            case 'J' : if (cParam[0] == '1') {
+                printNumber(200);;
+              }  break;
+
+
+
+            default:   // if other commands come in, ignore them
+              Serial.println("Err /  '" + SerialCmdString + "'");
+              // Serial.println("invalid / cmd, use '?' for help...");
+              break;
+          } // end switch (cAction)
+        } // end switch Token is '/'
+        break;  // break case cToken '/'
+
+
+
+      // ANY OTHER CTOKEN (unrecognized)
+      default:
+        Serial.println("Err '" + SerialCmdString + "'");
+        // ignore null entry, otherwise
+
+        /*
+          if (int(cToken) == 0 ) {
+            Serial.println("use '?' for help");
+          } else {
+            Serial.println("invalid token, use '?' for help");
           }
-          break;
+        */
 
-        // NEXT TOKEN TO PROCESS "<"
-       /* case '<' : {   // case cToken = <
-            switch (cAction) {    //MASTER switch
-              case 'a' : if (cParam[0] == '0') {
-                  gbMasterVolts = false;
-                }
-                if (cParam[0] == '1') {
-                  gbMasterVolts = true;
-                }
-                break;   //AVIONICS switch
-              case 'g' : if (cParam[0] == '0') {
-                  gbAvionicsVolts = false;
-                }
-                if (cParam[0] == '1') {
-                  gbAvionicsVolts = true;
-                }
-                break;
-              default:   // if other commands come in, ignore them
-                Serial.println("Err <  '" + SerialCmdString + "'");
-                //Serial.println("!<ERR!");
-                break;
-            } // end switch cAtion
-          } // end switch cToken is '<'
-          break;  // break case cToken '<'
-*/
-        // NEXT cToken to Process '='
-        case '=' :  {
-            switch (cAction) {    // =M1=N0=01=P1 etc, switch functions lights, set the DIG4, SEGx flags
-              case 'A' : if (cParam[0] == '1') {
-                  printNumber(999);
-                }  break;   // COM1 
-                
-              case 'B' : 
-                  printNumber(cParam);
-                 break;   // COM1
-
-
-   
-              default:   // if other commands come in, ignore them
-                // Serial.println("invalid = cmd, use '?' for help...");
-                Serial.println("Err =  '" + SerialCmdString + "'");
-                break;
-
-                
-            } // end switch (cAction)
-          } // end switch Token is '='
-          break;  // break case cToken '='
-
-        // NEXT cToken to Process '/'
-        case '/' :  {
-            switch (cAction) {
-              case 'J' : if (cParam[0] == '1') {
-                  printNumber(200);;
-                }  break;        
-                
-    
-
-              default:   // if other commands come in, ignore them
-                Serial.println("Err /  '" + SerialCmdString + "'");
-                // Serial.println("invalid / cmd, use '?' for help...");
-                break;
-            } // end switch (cAction)
-          } // end switch Token is '/'
-          break;  // break case cToken '/'
-
-
-      
-    // ANY OTHER CTOKEN (unrecognized)
-    default:
-    Serial.println("Err '" + SerialCmdString + "'");
-    // ignore null entry, otherwise
-  
-  /*
-    if (int(cToken) == 0 ) {
-      Serial.println("use '?' for help");
-    } else {
-      Serial.println("invalid token, use '?' for help");
-    }
-  */
-  
-    break;
+        break;
     } // end switch cToken
 
     //
     // post processing, if any
     //
 
-    } // END if SerialInReady
+  } // END if SerialInReady
 
-  
+
 
 
   // *************************************************************
@@ -664,8 +682,29 @@ void printNumber(int v) {
 
 
 
-//Now print the number digit by digit
-lc.setDigit(0, 2, (byte)hundreds, false);
-lc.setDigit(0, 1, (byte)tens, false);
-lc.setDigit(0, 0, (byte)ones, false);
+  //Now print the number digit by digit
+  lc.setDigit(0, 2, (byte)hundreds, false);
+  lc.setDigit(0, 1, (byte)tens, false);
+  lc.setDigit(0, 0, (byte)ones, false);
 }
+
+// *************************************************************
+//   printFreq(num)  //specific for freqency string handling
+//   Loop for display all characters from frequency string, incoming from COM1 or 2
+//
+// *************************************************************
+void printFreq(int lcdAddress, String freq) {
+  if (freq == "") lc.clearDisplay(lcdAddress);
+
+  int iLen = freq.length();
+
+  for (int j = 0; j < iLen; j++) {
+
+    if (freq[j] == '.') {lc.setChar(lcdAddress, iLen - 1 - j, freq[j-1], 1); 
+    lc.setChar(lcdAddress, iLen - 2 - j, freq[j], 0);}
+      else
+
+        lc.setChar(lcdAddress, iLen - 2 - j, freq[j], 0);
+
+  }
+}  //end f
