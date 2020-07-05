@@ -34,10 +34,14 @@ String ProjVersion = "/*********************************************************
 // *************************************************************
 #define ENC_E1_PIN_A 2
 #define ENC_E1_PIN_B 3
-#define ENC_E1_PIN_BTN 7
-#define SW_S1_PIN 5
-#define SW_S2_PIN 6
-#define SW_ST1_PIN 4
+//#define ENC_E1_PIN_BTN 4
+#define SW_S1_PIN 4
+#define SW_S2_PIN 5
+#define SW_S3_PIN 6
+#define SW_S4_PIN 7
+#define SW_S5_PIN 8
+#define SW_S6_PIN 9
+#define SW_ST1_PIN A0
 #define MAX_PIN_MOSI  12
 #define MAX_PIN_CS    10
 #define MAX_PIN_CK  11
@@ -76,7 +80,10 @@ typedef struct swmom_ {
 // *************************************************************
 SW_MOMENTARY_TYPE SW_S1 = { SW_S1_PIN, 0, 0};
 SW_MOMENTARY_TYPE SW_S2 = { SW_S2_PIN, 0, 0};
-
+SW_MOMENTARY_TYPE SW_S3 = { SW_S3_PIN, 0, 0};
+SW_MOMENTARY_TYPE SW_S4 = { SW_S4_PIN, 0, 0};
+SW_MOMENTARY_TYPE SW_S5 = { SW_S5_PIN, 0, 0};
+SW_MOMENTARY_TYPE SW_S6 = { SW_S6_PIN, 0, 0};
 // *************************************************************
 //  SW_STATIC_TYPE definition
 //  Typedef for switch data structure used in function ProcessStatic
@@ -145,7 +152,19 @@ boolean SerialInReady = false;      // whether the string is complete
 String  SerialCmdString = "";       // a string to hold broken up commands (reserved in SETUP)
 boolean SerialCmdReady = false;     // whether the command is ready
 
-String freqComOneString = "";       // COM 1 Frequency String
+String freqComOneActiveString = ""; // COM 1 ACTIVE Frequency String
+String freqComOneSbString = "";     // COM 1 S/B Frequency String
+
+String freqComTwoActiveString = ""; // COM 2 ACTIVE Frequency String
+String freqComTwoSbString = "";     // COM 2 S/B Frequency String
+
+String freqNavOneActiveString = ""; // NAV 1 ACTIVE Frequency String
+String freqNavOneSbString = "";     // NAV 1 S/B Frequency String
+
+String freqNavTwoActiveString = ""; // NAV 2 ACTIVE Frequency String
+String freqNavTwoSbString = "";     // NAV 2 S/B Frequency String
+
+
 
 // *************************************************************
 //   GENERIC variables
@@ -155,6 +174,7 @@ String freqComOneString = "";       // COM 1 Frequency String
 boolean gbMasterVolts = false;
 boolean gbAvionicsVolts = false;
 
+uint8_t radioStateVector[2] = {1, 0}; //  [1,2,3,4||0,1]  selected freq pair(active & s/b)and MHz or kHz selection
 // *************************************************************
 //   END PREPROCESSOR CODE
 // *************************************************************
@@ -192,9 +212,14 @@ void setup() {
   // Switches, set the pins for pullup mode  READ THIS!!! --> https://www.arduino.cc/en/Tutorial/DigitalPins
   pinMode(SW_S1.pin, INPUT_PULLUP);
   pinMode(SW_S2.pin, INPUT_PULLUP);
+  pinMode(SW_S3.pin, INPUT_PULLUP);
+  pinMode(SW_S4.pin, INPUT_PULLUP);
+  pinMode(SW_S5.pin, INPUT_PULLUP);
+  pinMode(SW_S6.pin, INPUT_PULLUP);
+
   pinMode(SW_ST1.pin, INPUT_PULLUP);
   //Encoder instantiation
-  ENC_E1 = new ClickEncoder(ENC_E1_PIN_A, ENC_E1_PIN_B, ENC_E1_PIN_BTN, 4);
+  ENC_E1 = new ClickEncoder(ENC_E1_PIN_A, ENC_E1_PIN_B, SW_S1_PIN, 4);
 
 
   //Timer1 setup
@@ -205,9 +230,19 @@ void setup() {
 
   // ********* Serial communications to PC
   Serial.begin(115200);  // output
-  SerialInString.reserve(200);        //  IN reserve 200 bytes for the inputString
-  SerialCmdString.reserve(200);       //  OUT reserve another 200 for post processor
-  freqComOneString.reserve(10);       //  Buffer frequency COM 1 String
+  SerialInString.reserve(200);            //  IN reserve 200 bytes for the inputString
+  SerialCmdString.reserve(200);           //  OUT reserve another 200 for post processor
+  freqComOneActiveString.reserve(10);     //  Buffer frequency COM 1 Active String
+  freqComOneSbString.reserve(10);        //  Buffer frequency COM 1 S/B String
+
+  freqComTwoActiveString.reserve(10);     //  Buffer frequency COM 2 Active String
+  freqComTwoSbString.reserve(10);        //  Buffer frequency COM 2 S/B String
+
+  freqNavOneActiveString.reserve(10);     //  Buffer frequency NAV 1 Active String
+  freqNavOneSbString.reserve(10);        //  Buffer frequency NAV 1 S/B String
+
+  freqNavTwoActiveString.reserve(10);     //  Buffer frequency NAV 2 Active String
+  freqNavTwoSbString.reserve(10);        //  Buffer frequency NAV 2 S/B String
   /*
     while (!Serial) {
     ; // wait for serial port to connect (you have to send something to Arduino)
@@ -231,7 +266,7 @@ void setup() {
       lc.setRow(0, i, B10000000); // SWITCH LEDS
       delay(10);
       lc.setRow(0, i, B11111111); // SWITCH LEDS
-      delay(100);
+      delay(50);
       lc.setRow(0, i, B00000000); // SWITCH LEDS
     }
   }
@@ -241,7 +276,7 @@ void setup() {
       lc.setRow(1, i, B10000000); // SWITCH LEDS
       delay(10);
       lc.setRow(1, i, B11111111); // SWITCH LEDS
-      delay(100);
+      delay(50);
       lc.setRow(1, i, B00000000); // SWITCH LEDS
     }
   }
@@ -286,6 +321,7 @@ void loop() {
 
   if ( IsSerialCommand() )  {
     int iLen = SerialCmdString.length();
+    int index = 0;
     Serial.print("Got string len "); Serial.println(iLen); Serial.print("Got: [");  Serial.print(SerialCmdString); Serial.println("]");
     char cToken; char cAction; char *cParam;
     cToken   = SerialCmdString[0];
@@ -302,28 +338,6 @@ void loop() {
 
     // Process the command sent in
     switch (cToken) {
-
-      case '?' :  {    // case cToken = ?
-          Serial.println("");
-          Serial.println("------ INPUTS ------");
-          Serial.println(" Power           @Pn  (0/1)");
-          Serial.println(" REBOOT Arduino  @R");
-          Serial.println(" TEST Mode       @Tn (0/1)");
-          Serial.println(" Brightness      @Bnn (0-15) [10]");
-          Serial.println(" MASTER power    <an  (0/1)");
-          Serial.println(" AVIONICS power  <gn  (0/1)");
-          Serial.println(" Switch lights   =Mn=Nn=On=Pn=Qn=Rn (0/1)");
-          Serial.println(" NAV GPS switch  =ln (0/1)");
-          Serial.println(" OMI lights      =Vn (0-3)");
-          Serial.println(" FUEL L, R       /Jn /Kn");
-          Serial.println(" VACUUM          /Nn");
-          Serial.println(" OIL PRESS       /Fn");
-          Serial.println(" VOLTS           /Rn");
-          Serial.println("------ OUTPUTS ------");
-          Serial.println(" Button Presses  (try them)");
-          Serial.println("");
-        }
-        break;
 
       // NEXT TOKEN TO PROCESS "<"
       /* case '<' : {   // case cToken = <
@@ -352,38 +366,197 @@ void loop() {
       */
       // NEXT cToken to Process '='
       case '=' :  {
-          switch (cAction) {    // =M1=N0=01=P1 etc, switch functions lights, set the DIG4, SEGx flags
-            case 'A' :
-              freqComOneString = ""; //clear buffer
-              printFreq(0, freqComOneString);
-              int index = 0;
+          switch (cAction) {
+            case 'A' :  //ACTIVE COM1
+              freqComOneActiveString = ""; //clear buffer
+              PrintFreq(0, freqComOneActiveString); //clear lcd
+              index = 0;
               while (cParam[index] != '.') {
-                freqComOneString += cParam[index];
+                freqComOneActiveString += cParam[index];
 
-                Serial.print("Parsing "); Serial.println(index);
+                Serial.print("Parsing integers"); Serial.println(index);
 
                 index++;
               }
-              Serial.print("Freq "); Serial.println(freqComOneString);
+              Serial.print("Freq "); Serial.println(freqComOneActiveString);
               while (cParam[index] != '\0') {
-                freqComOneString += cParam[index];
+                freqComOneActiveString += cParam[index];
+                Serial.print("Parsing decimal"); Serial.println(index);
                 index++;
               }
-              Serial.print("Freq "); Serial.println(freqComOneString);
-
-              printFreq(0, freqComOneString);
-              break;   // COM1
-
-            case 'B' :
-              printNumber(cParam);
-              break;   // COM1
+              Serial.print("Freq "); Serial.println(freqComOneActiveString);
 
 
 
-            default:   // if other commands come in, ignore them
-              // Serial.println("invalid = cmd, use '?' for help...");
-              Serial.println("Err =  '" + SerialCmdString + "'");
-              break;
+              RefreshDisplay(radioStateVector);
+              break;   // END ACTIVE COM1
+
+            case 'B' :  // S/B COM1
+              freqComOneSbString = ""; //clear buffer
+              PrintFreq(1, freqComOneSbString); //clearlcd
+              index = 0;
+              while (cParam[index] != '.') {
+                freqComOneSbString += cParam[index];
+
+                Serial.print("Parsing integers"); Serial.println(index);
+
+                index++;
+              }
+              Serial.print("Freq "); Serial.println(freqComOneSbString);
+              while (cParam[index] != '\0') {
+                freqComOneSbString += cParam[index];
+                Serial.print("Parsing decimal "); Serial.println(index);
+
+                index++;
+              }
+              Serial.print("Freq "); Serial.println(freqComOneSbString);
+
+              RefreshDisplay(radioStateVector);
+              break;   // END S/B COM1
+
+
+            case 'C' :  //ACTIVE COM2
+              freqComTwoActiveString = ""; //clear buffer
+              PrintFreq(0, freqComTwoActiveString); //clear lcd
+              index = 0;
+              while (cParam[index] != '.') {
+                freqComTwoActiveString += cParam[index];
+
+                Serial.print("Parsing integers"); Serial.println(index);
+
+                index++;
+              }
+              Serial.print("Freq "); Serial.println(freqComOneActiveString);
+              while (cParam[index] != '\0') {
+                freqComTwoActiveString += cParam[index];
+                Serial.print("Parsing decimal"); Serial.println(index);
+                index++;
+              }
+              Serial.print("Freq "); Serial.println(freqComTwoActiveString);
+
+              RefreshDisplay(radioStateVector);
+              break;   // END ACTIVE COM2
+
+            case 'D' :  // S/B COM2
+              freqComTwoSbString = ""; //clear buffer
+              PrintFreq(1, freqComTwoSbString); //clearlcd
+              index = 0;
+              while (cParam[index] != '.') {
+                freqComTwoSbString += cParam[index];
+
+                Serial.print("Parsing integers"); Serial.println(index);
+
+                index++;
+              }
+              Serial.print("Freq "); Serial.println(freqComTwoSbString);
+              while (cParam[index] != '\0') {
+                freqComTwoSbString += cParam[index];
+                Serial.print("Parsing decimal "); Serial.println(index);
+
+                index++;
+              }
+              Serial.print("Freq "); Serial.println(freqComTwoSbString);
+
+              RefreshDisplay(radioStateVector);
+              break;   // END S/B COM2
+
+
+            case 'E' :  //ACTIVE NAV1
+              freqNavOneActiveString = ""; //clear buffer
+              PrintFreq(0, freqNavOneActiveString); //clear lcd
+              index = 0;
+              while (cParam[index] != '.') {
+                freqNavOneActiveString += cParam[index];
+
+                Serial.print("Parsing integers"); Serial.println(index);
+
+                index++;
+              }
+              Serial.print("Freq "); Serial.println(freqNavOneActiveString);
+              while (cParam[index] != '\0') {
+                freqNavOneActiveString += cParam[index];
+                Serial.print("Parsing decimal"); Serial.println(index);
+                index++;
+              }
+              Serial.print("Freq "); Serial.println(freqNavOneActiveString);
+
+              RefreshDisplay(radioStateVector);
+              break;   // END ACTIVE NAV1
+
+
+            case 'F' :  // S/B NAV1
+              freqNavOneSbString = ""; //clear buffer
+              PrintFreq(1,   freqNavOneSbString ); //clearlcd
+              index = 0;
+              while (cParam[index] != '.') {
+                freqNavOneSbString  += cParam[index];
+
+                Serial.print("Parsing integers"); Serial.println(index);
+
+                index++;
+              }
+              Serial.print("Freq "); Serial.println(  freqNavOneSbString );
+              while (cParam[index] != '\0') {
+                freqNavOneSbString  += cParam[index];
+                Serial.print("Parsing decimal "); Serial.println(index);
+
+                index++;
+              }
+              Serial.print("Freq "); Serial.println(  freqNavOneSbString );
+
+
+              RefreshDisplay(radioStateVector);
+              break;   // END S/B NAV1
+
+
+            case 'G' :  //ACTIVE NAV2
+              freqNavTwoActiveString = ""; //clear buffer
+              PrintFreq(0, freqNavTwoActiveString); //clear lcd
+              index = 0;
+              while (cParam[index] != '.') {
+                freqNavTwoActiveString += cParam[index];
+
+                Serial.print("Parsing integers"); Serial.println(index);
+
+                index++;
+              }
+              Serial.print("Freq "); Serial.println(freqNavTwoActiveString);
+              while (cParam[index] != '\0') {
+                freqNavTwoActiveString += cParam[index];
+                Serial.print("Parsing decimal"); Serial.println(index);
+                index++;
+              }
+              Serial.print("Freq "); Serial.println(freqNavTwoActiveString);
+
+              RefreshDisplay(radioStateVector);
+              break;   // END ACTIVE NAV2
+
+
+            case 'H' :  // S/B NAV2
+              freqNavTwoSbString = ""; //clear buffer
+              PrintFreq(1,   freqNavTwoSbString  ); //clearlcd
+              index = 0;
+              while (cParam[index] != '.') {
+                freqNavTwoSbString    += cParam[index];
+
+                Serial.print("Parsing integers"); Serial.println(index);
+
+                index++;
+              }
+              Serial.print("Freq "); Serial.println( freqNavTwoSbString );
+              while (cParam[index] != '\0') {
+                freqNavTwoSbString += cParam[index];
+                Serial.print("Parsing decimal "); Serial.println(index);
+
+                index++;
+              }
+              Serial.print("Freq "); Serial.println(freqNavTwoSbString );
+
+
+              RefreshDisplay(radioStateVector);
+              break;   // END S/B NAV2
+
+
 
 
           } // end switch (cAction)
@@ -394,7 +567,7 @@ void loop() {
       case '/' :  {
           switch (cAction) {
             case 'J' : if (cParam[0] == '1') {
-                printNumber(200);;
+                PrintNumber(200);;
               }  break;
 
 
@@ -449,9 +622,12 @@ void loop() {
   // *************************************************************
 
   // Check using pointers instead of big chunks o code
-  ProcessMomentary(&SW_S1);          // TOGGLE STDBY COM SW
-  ProcessMomentary(&SW_S2);          // TOGGLE STDBY INSTRUM SW
-
+  ProcessMomentary(&SW_S1);          // TOGGLE Scaling
+  ProcessMomentary(&SW_S2);          // COM1 BTN
+  ProcessMomentary(&SW_S3);          // COM2 BTN
+  ProcessMomentary(&SW_S4);          // NAV1 BTN
+  ProcessMomentary(&SW_S5);         //  NAV2 BTN
+  ProcessMomentary(&SW_S6);         //  toggle freq
   ProcessStatic(&SW_ST1);
   // ***************************************************
   // Switch action, state==2 means pressed and debounced, ready to read
@@ -459,13 +635,67 @@ void loop() {
 
 
   // SEND CMD AND CHANGE TO READY STATE  Act on regular button presses
+
+
+  // ToggleRotaryScaling Button
   if (SW_S1.state == 2) {
-    Serial.println("A06"); SW_S1.
-    state = 3;
-  }   // TOGGLE STDBY COM SW
+    Serial.print(radioStateVector[0]); Serial.println(radioStateVector[1]);
+    ToggleRotaryScaling(radioStateVector);
+    Serial.print(radioStateVector[0]); Serial.println(radioStateVector[1]);
+    SW_S1.state = 3;
+
+  }
+
+
+  //COM1 BTN
   if (SW_S2.state == 2) {
-    Serial.println("A12");  // TOGGLE STDBY INSTRUM SW
+    Serial.print(radioStateVector[0]); Serial.println(radioStateVector[1]);
+    Selector(1, radioStateVector);
+    Serial.print(radioStateVector[0]); Serial.println(radioStateVector[1]);
     SW_S2.state = 3;
+
+    RefreshDisplay(radioStateVector);
+  }
+
+  //COM2 BTN
+  if (SW_S3.state == 2) {
+    Serial.print(radioStateVector[0]); Serial.println(radioStateVector[1]);
+    Selector(2, radioStateVector);
+    Serial.print(radioStateVector[0]); Serial.println(radioStateVector[1]);
+    SW_S3.state = 3;
+
+    RefreshDisplay(radioStateVector);
+  }
+
+
+
+  //NAV1 BTN
+  if (SW_S4.state == 2) {
+    Serial.print(radioStateVector[0]); Serial.println(radioStateVector[1]);
+    Selector(3, radioStateVector);
+    Serial.print(radioStateVector[0]); Serial.println(radioStateVector[1]);
+    SW_S4.state = 3;
+
+    RefreshDisplay(radioStateVector);
+  }
+
+
+
+  //NAV2 BTN
+  if (SW_S5.state == 2) {
+    Serial.print(radioStateVector[0]); Serial.println(radioStateVector[1]);
+    Selector(4, radioStateVector);
+    Serial.print(radioStateVector[0]); Serial.println(radioStateVector[1]);
+    SW_S5.state = 3;
+
+    RefreshDisplay(radioStateVector);
+  }
+
+  //ACTIVE S/B TOGGLE BTN
+  if (SW_S6.state == 2) {
+    Serial.println("TOGGLE");
+    RefreshDisplay(radioStateVector);
+    SW_S6.state = 3;
   }
 
 
@@ -474,9 +704,9 @@ void loop() {
 
   valueEncoder_E1 += ENC_E1->getValue();
   if (valueEncoder_E1 != lastEncoder_E1) {
-    printNumber(valueEncoder_E1);
-    if (valueEncoder_E1 > lastEncoder_E1)  Serial.println("++");
-    else Serial.println("--");
+    PrintNumber(valueEncoder_E1);
+    if (valueEncoder_E1 > lastEncoder_E1)  Serial.println("--");
+    else Serial.println("++");
   }
   lastEncoder_E1 = valueEncoder_E1;
 }
@@ -654,11 +884,11 @@ void serialEvent() {
 } // end SerialEvent handler
 
 // *************************************************************
-//   printNumber(num)
+//   PrintNumber(num)
 //   Convert integer
 //
 // *************************************************************
-void printNumber(int v) {
+void PrintNumber(int v) {
   int ones;
   int tens;
   int hundreds;
@@ -689,22 +919,74 @@ void printNumber(int v) {
 }
 
 // *************************************************************
-//   printFreq(num)  //specific for freqency string handling
+//   PrintFreq(addr, frq)  //specific for freqency string handling
 //   Loop for display all characters from frequency string, incoming from COM1 or 2
-//
 // *************************************************************
-void printFreq(int lcdAddress, String freq) {
-  if (freq == "") lc.clearDisplay(lcdAddress);
+void PrintFreq(int lcdAddress, String freq) {
+  lc.clearDisplay(lcdAddress);
 
   int iLen = freq.length();
-
+  int i = 0;
   for (int j = 0; j < iLen; j++) {
 
-    if (freq[j] == '.') {lc.setChar(lcdAddress, iLen - 1 - j, freq[j-1], 1); 
-    lc.setChar(lcdAddress, iLen - 2 - j, freq[j], 0);}
-      else
-
-        lc.setChar(lcdAddress, iLen - 2 - j, freq[j], 0);
-
+    if (freq[i + 1] == '.') {
+      lc.setChar(lcdAddress, iLen - 2 - j, freq[i], 1);
+      i++;
+    }
+    else
+      lc.setChar(lcdAddress, iLen - 2 - j, freq[i], 0);
+    i++;
   }
 }  //end f
+
+
+// *************************************************************
+//   RefreshDisplay(state vector)
+//   handle all lcd refresh
+// *************************************************************
+void RefreshDisplay(uint8_t *radioStateVectorPtr)  {
+  switch (radioStateVector[0]) {
+    case 1: //if COM1 selected, print com1
+      PrintFreq(0, freqComOneActiveString);
+      PrintFreq(1, freqComOneSbString);
+      break;
+    case 2: //if COM2 selected, print com2
+      PrintFreq(0, freqComTwoActiveString);
+      PrintFreq(1, freqComTwoSbString);
+      break;
+    case 3: //if NAV1 selected, print NAV1
+      PrintFreq(0, freqNavOneActiveString);
+      PrintFreq(1, freqNavOneSbString);
+      break;
+    case 4: //if NAV2 selected, print NAV2
+      PrintFreq(0, freqNavTwoActiveString);
+      PrintFreq(1, freqNavTwoSbString);
+      break;
+    default:
+      break;
+  }
+}  //end f
+
+
+
+
+// *************************************************************
+//   Selector(state, state vector ptr)
+//   Change Radio selection on request
+// *************************************************************
+void Selector(int state, uint8_t *radioStateVectorPtr) {
+
+  radioStateVectorPtr[0] = state;
+  //led status refresh
+}
+// *************************************************************
+//   ToggleRotaryScaling(state vector ptr)
+//   Toggle Mhz or kHz scaling of rotary encoder
+// *************************************************************
+void ToggleRotaryScaling( uint8_t *radioStateVectorPtr) {
+
+  if (radioStateVectorPtr[1] == 0)radioStateVectorPtr[1] = 1;
+  else radioStateVectorPtr[1] = 0;
+  //led Mhz status refresh.
+
+}
