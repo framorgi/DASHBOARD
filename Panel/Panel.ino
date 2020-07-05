@@ -35,13 +35,13 @@ String ProjVersion = "/*********************************************************
 #define ENC_E1_PIN_A 2
 #define ENC_E1_PIN_B 3
 //#define ENC_E1_PIN_BTN 4
-#define SW_S1_PIN 4
-#define SW_S2_PIN 5
-#define SW_S3_PIN 6
-#define SW_S4_PIN 7
-#define SW_S5_PIN 8
-#define SW_S6_PIN 9
-#define SW_ST1_PIN A0
+#define SW_S1_PIN A0
+#define SW_S2_PIN A1
+#define SW_S3_PIN A2
+#define SW_S4_PIN A3
+#define SW_S5_PIN A4
+#define SW_S6_PIN A5
+#define SW_ST1_PIN 9
 #define MAX_PIN_MOSI  12
 #define MAX_PIN_CS    10
 #define MAX_PIN_CK  11
@@ -704,9 +704,9 @@ void loop() {
 
   valueEncoder_E1 += ENC_E1->getValue();
   if (valueEncoder_E1 != lastEncoder_E1) {
-    PrintNumber(valueEncoder_E1);
-    if (valueEncoder_E1 > lastEncoder_E1)  Serial.println("--");
-    else Serial.println("++");
+    
+    if (valueEncoder_E1 > lastEncoder_E1)  IncFreq(radioStateVector);
+    else DecFreq(radioStateVector);
   }
   lastEncoder_E1 = valueEncoder_E1;
 }
@@ -988,5 +988,98 @@ void ToggleRotaryScaling( uint8_t *radioStateVectorPtr) {
   if (radioStateVectorPtr[1] == 0)radioStateVectorPtr[1] = 1;
   else radioStateVectorPtr[1] = 0;
   //led Mhz status refresh.
+}
+// *************************************************************
+//   IncFreq( uint8_t *radioStateVectorPtr)
+//   Send serial command inc
+// *************************************************************
+void IncFreq( uint8_t *radioStateVectorPtr) {
+  if (radioStateVector[1] == 0) {// Inc by Mhz
+    switch (radioStateVector[0]) {
+      case 1: //if COM1 selected, inc com1
+        Serial.println("A08");
 
+        break;
+      case 2: //if COM2 selected, inc com2
+        Serial.println("A09");
+        break;
+      case 3: //if NAV1 selected, inc NAV1
+        Serial.println("A10");
+        break;
+      case 4: //if NAV2 selected, inc NAV2
+        Serial.println("A11");
+        break;
+      default:
+        break;
+    }
+  }
+  else   //Inc by khz
+  {
+    switch (radioStateVector[0]) {
+      case 1: //if COM1 selected, inc com1
+        Serial.println("A12");
+
+        break;
+      case 2: //if COM2 selected, inc com2
+        Serial.println("A13");
+        break;
+      case 3: //if NAV1 selected, inc NAV1
+        Serial.println("A14");
+        break;
+      case 4: //if NAV2 selected, inc NAV2
+        Serial.println("A15");
+        break;
+      default:
+        break;
+    }
+
+  }
+}
+
+
+// *************************************************************
+//   DecFreq( uint8_t *radioStateVectorPtr)
+//   Send serial command dec
+// *************************************************************
+void DecFreq( uint8_t *radioStateVectorPtr) {
+  if (radioStateVector[1] == 0) {// Dec by Mhz
+    switch (radioStateVector[0]) {
+      case 1: //if COM1 selected, dec com1
+        Serial.println("A28");
+
+        break;
+      case 2: //if COM2 selected, dec com2
+        Serial.println("A29");
+        break;
+      case 3: //if NAV1 selected, dec NAV1
+        Serial.println("A20");
+        break;
+      case 4: //if NAV2 selected, dec NAV2
+        Serial.println("A21");
+        break;
+      default:
+        break;
+    }
+  }
+  else   //dec by khz
+  {
+    switch (radioStateVector[0]) {
+      case 1: //if COM1 selected, dec com1
+        Serial.println("A22");
+
+        break;
+      case 2: //if COM2 selected, dec com2
+        Serial.println("A23");
+        break;
+      case 3: //if NAV1 selected, dec NAV1
+        Serial.println("A24");
+        break;
+      case 4: //if NAV2 selected, dec NAV2
+        Serial.println("A25");
+        break;
+      default:
+        break;
+    }
+
+  }
 }
