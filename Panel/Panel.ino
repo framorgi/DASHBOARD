@@ -639,9 +639,9 @@ void loop() {
 
   // ToggleRotaryScaling Button
   if (SW_S1.state == 2) {
-    Serial.print(radioStateVector[0]); Serial.println(radioStateVector[1]);
+    //Serial.print(radioStateVector[0]); Serial.println(radioStateVector[1]);
     ToggleRotaryScaling(radioStateVector);
-    Serial.print(radioStateVector[0]); Serial.println(radioStateVector[1]);
+    //Serial.print(radioStateVector[0]); Serial.println(radioStateVector[1]);
     SW_S1.state = 3;
 
   }
@@ -649,9 +649,9 @@ void loop() {
 
   //COM1 BTN
   if (SW_S2.state == 2) {
-    Serial.print(radioStateVector[0]); Serial.println(radioStateVector[1]);
-    Selector(1, radioStateVector);
-    Serial.print(radioStateVector[0]); Serial.println(radioStateVector[1]);
+    //Serial.print(radioStateVector[0]); Serial.println(radioStateVector[1]);
+    ModeModeSelector(1, radioStateVector);
+    //Serial.print(radioStateVector[0]); Serial.println(radioStateVector[1]);
     SW_S2.state = 3;
 
     RefreshDisplay(radioStateVector);
@@ -659,9 +659,9 @@ void loop() {
 
   //COM2 BTN
   if (SW_S3.state == 2) {
-    Serial.print(radioStateVector[0]); Serial.println(radioStateVector[1]);
-    Selector(2, radioStateVector);
-    Serial.print(radioStateVector[0]); Serial.println(radioStateVector[1]);
+    //Serial.print(radioStateVector[0]); Serial.println(radioStateVector[1]);
+    ModeSelector(2, radioStateVector);
+    //Serial.print(radioStateVector[0]); Serial.println(radioStateVector[1]);
     SW_S3.state = 3;
 
     RefreshDisplay(radioStateVector);
@@ -671,9 +671,9 @@ void loop() {
 
   //NAV1 BTN
   if (SW_S4.state == 2) {
-    Serial.print(radioStateVector[0]); Serial.println(radioStateVector[1]);
-    Selector(3, radioStateVector);
-    Serial.print(radioStateVector[0]); Serial.println(radioStateVector[1]);
+    //Serial.print(radioStateVector[0]); Serial.println(radioStateVector[1]);
+    ModeSelector(3, radioStateVector);
+    //Serial.print(radioStateVector[0]); Serial.println(radioStateVector[1]);
     SW_S4.state = 3;
 
     RefreshDisplay(radioStateVector);
@@ -683,9 +683,9 @@ void loop() {
 
   //NAV2 BTN
   if (SW_S5.state == 2) {
-    Serial.print(radioStateVector[0]); Serial.println(radioStateVector[1]);
-    Selector(4, radioStateVector);
-    Serial.print(radioStateVector[0]); Serial.println(radioStateVector[1]);
+    //Serial.print(radioStateVector[0]); Serial.println(radioStateVector[1]);
+    ModeSelector(4, radioStateVector);
+    //Serial.print(radioStateVector[0]); Serial.println(radioStateVector[1]);
     SW_S5.state = 3;
 
     RefreshDisplay(radioStateVector);
@@ -693,7 +693,7 @@ void loop() {
 
   //ACTIVE S/B TOGGLE BTN
   if (SW_S6.state == 2) {
-    Serial.println("TOGGLE");
+    SwapFreq(radioStateVector);
     RefreshDisplay(radioStateVector);
     SW_S6.state = 3;
   }
@@ -971,10 +971,10 @@ void RefreshDisplay(uint8_t *radioStateVectorPtr)  {
 
 
 // *************************************************************
-//   Selector(state, state vector ptr)
+//   ModeSelector(state, state vector ptr)
 //   Change Radio selection on request
 // *************************************************************
-void Selector(int state, uint8_t *radioStateVectorPtr) {
+void ModeSelector(int state, uint8_t *radioStateVectorPtr) {
 
   radioStateVectorPtr[0] = state;
   //led status refresh
@@ -997,17 +997,17 @@ void IncFreq( uint8_t *radioStateVectorPtr) {
   if (radioStateVector[1] == 0) {// Inc by Mhz
     switch (radioStateVector[0]) {
       case 1: //if COM1 selected, inc com1
-        Serial.println("A08");
+        Serial.println("A02");
 
         break;
       case 2: //if COM2 selected, inc com2
-        Serial.println("A09");
+        Serial.println("A07");
         break;
       case 3: //if NAV1 selected, inc NAV1
-        Serial.println("A10");
+        Serial.println("A14");
         break;
       case 4: //if NAV2 selected, inc NAV2
-        Serial.println("A11");
+        Serial.println("A20");
         break;
       default:
         break;
@@ -1017,17 +1017,17 @@ void IncFreq( uint8_t *radioStateVectorPtr) {
   {
     switch (radioStateVector[0]) {
       case 1: //if COM1 selected, inc com1
-        Serial.println("A12");
+        Serial.println("A04");
 
         break;
       case 2: //if COM2 selected, inc com2
-        Serial.println("A13");
+        Serial.println("A10");
         break;
       case 3: //if NAV1 selected, inc NAV1
-        Serial.println("A14");
+        Serial.println("A16");
         break;
       case 4: //if NAV2 selected, inc NAV2
-        Serial.println("A15");
+        Serial.println("A22");
         break;
       default:
         break;
@@ -1045,17 +1045,17 @@ void DecFreq( uint8_t *radioStateVectorPtr) {
   if (radioStateVector[1] == 0) {// Dec by Mhz
     switch (radioStateVector[0]) {
       case 1: //if COM1 selected, dec com1
-        Serial.println("A28");
+        Serial.println("A01");
 
         break;
       case 2: //if COM2 selected, dec com2
-        Serial.println("A29");
+        Serial.println("A07");
         break;
       case 3: //if NAV1 selected, dec NAV1
-        Serial.println("A20");
+        Serial.println("A13");
         break;
       case 4: //if NAV2 selected, dec NAV2
-        Serial.println("A21");
+        Serial.println("A19");
         break;
       default:
         break;
@@ -1065,21 +1065,46 @@ void DecFreq( uint8_t *radioStateVectorPtr) {
   {
     switch (radioStateVector[0]) {
       case 1: //if COM1 selected, dec com1
-        Serial.println("A22");
+        Serial.println("A03");
 
         break;
       case 2: //if COM2 selected, dec com2
-        Serial.println("A23");
+        Serial.println("A09");
         break;
       case 3: //if NAV1 selected, dec NAV1
-        Serial.println("A24");
+        Serial.println("A15");
         break;
       case 4: //if NAV2 selected, dec NAV2
-        Serial.println("A25");
+        Serial.println("A21");
         break;
       default:
         break;
     }
 
   }
+// *************************************************************
+//   SwapFreq( uint8_t *radioStateVectorPtr)
+//   Send serial command for swapping freq
+// *************************************************************
+void SwapFreq( uint8_t *radioStateVectorPtr) {
+  
+    switch (radioStateVector[0]) {
+      case 1: //if COM1 selected, 
+        Serial.println("A06");
+
+        break;
+      case 2: //if COM2 selected, dec com2
+        Serial.println("A12");
+        break;
+      case 3: //if NAV1 selected, dec NAV1
+        Serial.println("A18");
+        break;
+      case 4: //if NAV2 selected, dec NAV2
+        Serial.println("A24");
+        break;
+      default:
+        break;
+    }
+  
+ 
 }
