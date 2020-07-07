@@ -1001,7 +1001,8 @@ void IncFreq( uint8_t *radioStateVectorPtr) {
 
         break;
       case 2: //if COM2 selected, inc com2
-        Serial.println("A08");
+        Serial.println("A08
+        ");
         break;
       case 3: //if NAV1 selected, inc NAV1
         Serial.println("A14");
