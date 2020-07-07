@@ -650,7 +650,7 @@ void loop() {
   //COM1 BTN
   if (SW_S2.state == 2) {
     //Serial.print(radioStateVector[0]); Serial.println(radioStateVector[1]);
-    ModeModeSelector(1, radioStateVector);
+    ModeSelector(1, radioStateVector);
     //Serial.print(radioStateVector[0]); Serial.println(radioStateVector[1]);
     SW_S2.state = 3;
 
@@ -1001,7 +1001,7 @@ void IncFreq( uint8_t *radioStateVectorPtr) {
 
         break;
       case 2: //if COM2 selected, inc com2
-        Serial.println("A07");
+        Serial.println("A08");
         break;
       case 3: //if NAV1 selected, inc NAV1
         Serial.println("A14");
@@ -1082,6 +1082,7 @@ void DecFreq( uint8_t *radioStateVectorPtr) {
     }
 
   }
+}
 // *************************************************************
 //   SwapFreq( uint8_t *radioStateVectorPtr)
 //   Send serial command for swapping freq
